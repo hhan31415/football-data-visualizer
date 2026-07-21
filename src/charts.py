@@ -95,6 +95,7 @@ def build_wheel(
         legend_title_text="",
         margin=dict(t=20, b=20, l=20, r=20),
         font=dict(size=11),
+        polar=dict(radialaxis=dict(tickfont=dict(color="#696E77"))),
     )
     return fig
 
