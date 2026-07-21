@@ -1,4 +1,22 @@
+import re
+
 import pandas as pd
+
+_DISPLAY_OVERRIDES = {
+    "xGDifference": "xG Difference",
+    "xGConceded": "xG Conceded",
+    "PossessionWonFinal3rdPerMatch": "Possession Won Final 3rd Per Match",
+}
+
+
+def display_name(name: str) -> str:
+    """Human-readable, space-separated form of a canonical stat name, e.g.
+    "GoalsPerGame" -> "Goals Per Game". Used for UI display only; canonical
+    names (dict keys) elsewhere are unaffected."""
+    if name in _DISPLAY_OVERRIDES:
+        return _DISPLAY_OVERRIDES[name]
+    words = re.findall(r"[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|[A-Z]+|[0-9]+", name)
+    return " ".join(words) if words else name
 
 
 def resolve_single(df: pd.DataFrame, candidates: list) -> str | None:

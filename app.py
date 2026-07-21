@@ -38,15 +38,15 @@ def stat_table(active_stats, raw, values):
 
 row0 = st.columns(2)
 with row0[0]:
-    dataset_label = st.radio(
-        "Dataset", ["NCAA", "General"], horizontal=True,
-        help="NCAA uses the built-in NCAA soccer stat presets. General is dataset-agnostic "
-        "(seeded from FotMob/MLS-style exports) for any team/player CSV.",
-    )
-    dataset = "ncaa" if dataset_label == "NCAA" else "general"
-with row0[1]:
     mode_label = st.radio("Mode", ["Team Stats", "Individual Stats"], horizontal=True)
     mode = "team" if mode_label == "Team Stats" else "individual"
+with row0[1]:
+    dataset_label = st.radio(
+        "Dataset", ["General", "NCAA"], horizontal=True,
+        help="General is dataset-agnostic for any "
+        "team/player CSV. NCAA uses the built-in NCAA soccer stat presets.",
+    )
+    dataset = "ncaa" if dataset_label == "NCAA" else "general"
 
 aliases_cfg = config_loader.load_aliases(dataset, mode)
 stat_meta = aliases_cfg["stats"]
@@ -102,9 +102,16 @@ with preset_col:
     preset_choice = st.selectbox("Preset", preset_names)
 
 if preset_choice == "Custom":
-    canonical_stats = st.multiselect(
-        "Pick exactly 6 stats", list(stat_meta.keys()), max_selections=6
+    display_to_canonical = {}
+    for canonical in stat_meta.keys():
+        label = stat_resolver.display_name(canonical)
+        if label in display_to_canonical:
+            label = f"{label} ({canonical})"
+        display_to_canonical[label] = canonical
+    chosen_labels = st.multiselect(
+        "Pick exactly 6 stats", sorted(display_to_canonical.keys()), max_selections=6
     )
+    canonical_stats = [display_to_canonical[label] for label in chosen_labels]
     if len(canonical_stats) != 6:
         st.warning("Pick exactly 6 stats to continue.")
         st.stop()
@@ -120,7 +127,9 @@ if unresolved:
     for c, stat in zip(resolve_cols, unresolved):
         with c:
             choice = st.selectbox(
-                f"'{stat}'", ["(skip)"] + list(df.columns), key=f"resolve_{dataset}_{mode}_{stat}"
+                f"'{stat_resolver.display_name(stat)}'",
+                ["(skip)"] + list(df.columns),
+                key=f"resolve_{dataset}_{mode}_{stat}",
             )
             resolved[stat] = None if choice == "(skip)" else choice
 
@@ -128,6 +137,8 @@ active_stats = [s for s in canonical_stats if resolved.get(s)]
 if not active_stats:
     st.error("No stats resolved — cannot build a chart.")
     st.stop()
+
+active_stat_labels = [stat_resolver.display_name(s) for s in active_stats]
 
 pct_df = percentiles.compute_percentiles(
     df,
@@ -169,7 +180,8 @@ if comparison_mode == "Vs League Average":
     baseline = df.loc[pct_df.index]
     compare_values = [50] * len(active_stats)
     compare_raw = [
-        pd.to_numeric(baseline[resolved[s]], errors="coerce").mean() for s in active_stats
+        round(pd.to_numeric(baseline[resolved[s]], errors="coerce").mean(), 2)
+        for s in active_stats
     ]
     compare_name = "League Average"
 else:
@@ -185,7 +197,7 @@ else:
         compare_name = compare_entity
 
 fig = charts.build_wheel(
-    active_stats,
+    active_stat_labels,
     entity_values,
     entity_name,
     raw_values=entity_raw,
@@ -199,13 +211,15 @@ table_cols = st.columns(2) if compare_values is not None else st.columns(1)
 with table_cols[0]:
     st.caption(entity_name)
     st.dataframe(
-        stat_table(active_stats, entity_raw, entity_values), hide_index=True, use_container_width=True
+        stat_table(active_stat_labels, entity_raw, entity_values),
+        hide_index=True,
+        use_container_width=True,
     )
 if compare_values is not None:
     with table_cols[1]:
         st.caption(compare_name)
         st.dataframe(
-            stat_table(active_stats, compare_raw, compare_values),
+            stat_table(active_stat_labels, compare_raw, compare_values),
             hide_index=True,
             use_container_width=True,
         )
@@ -231,6 +245,7 @@ if mode == "individual" and team_csv_df is not None:
             team_resolved = stat_resolver.resolve_stats(team_csv_df, team_canonical, team_stat_meta)
             team_active = [s for s in team_canonical if team_resolved.get(s)]
             if team_active:
+                team_active_labels = [stat_resolver.display_name(s) for s in team_active]
                 team_pct_df = percentiles.compute_percentiles(
                     team_csv_df, {s: team_resolved[s] for s in team_active}, team_stat_meta
                 )
@@ -241,7 +256,7 @@ if mode == "individual" and team_csv_df is not None:
                 ]
                 t_raw = [team_csv_df.loc[team_idx, team_resolved[s]] for s in team_active]
                 team_fig = charts.build_wheel(
-                    team_active,
+                    team_active_labels,
                     t_values,
                     player_team_name,
                     raw_values=t_raw,
@@ -253,7 +268,7 @@ if mode == "individual" and team_csv_df is not None:
                 with t_cols[0]:
                     st.caption(player_team_name)
                     st.dataframe(
-                        stat_table(team_active, t_raw, t_values),
+                        stat_table(team_active_labels, t_raw, t_values),
                         hide_index=True,
                         use_container_width=True,
                     )
@@ -261,11 +276,11 @@ if mode == "individual" and team_csv_df is not None:
                     st.caption("League Average")
                     team_baseline = team_csv_df
                     avg_raw = [
-                        pd.to_numeric(team_baseline[team_resolved[s]], errors="coerce").mean()
+                        round(pd.to_numeric(team_baseline[team_resolved[s]], errors="coerce").mean(), 2)
                         for s in team_active
                     ]
                     st.dataframe(
-                        stat_table(team_active, avg_raw, [50] * len(team_active)),
+                        stat_table(team_active_labels, avg_raw, [50] * len(team_active)),
                         hide_index=True,
                         use_container_width=True,
                     )
