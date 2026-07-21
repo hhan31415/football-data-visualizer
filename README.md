@@ -21,6 +21,7 @@ customization and filtering options.
   minor formatting differences (`GoalsPerGame` vs `goals_per_game`) still
   resolve automatically. Anything that can't be matched falls back to a
   manual column picker.
+- **Available as a Streamlit App**: https://soccer-data-visualizer.streamlit.app/
 ![](img/example1.png)
 ![](img/example2.png)
 
