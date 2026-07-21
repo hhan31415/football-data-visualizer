@@ -4,7 +4,37 @@ import streamlit as st
 from src import charts, config_loader, data_io, percentiles, stat_resolver
 
 st.set_page_config(page_title="NCAA Soccer Stat Wheel", layout="wide")
+
+st.markdown(
+    """
+    <style>
+    .block-container {padding-top: 1.5rem; padding-bottom: 1rem;}
+    h1 {font-size: 1.3rem !important; margin-bottom: 0.3rem;}
+    h2, h3 {font-size: 0.95rem !important; margin-top: 0.2rem; margin-bottom: 0.2rem;}
+    label, .stRadio label p, .stSelectbox label p, .stMultiSelect label p,
+    div[data-testid="stMarkdownContainer"] p, .stCaption {
+        font-size: 0.78rem !important;
+    }
+    div[data-testid="stFileUploaderDropzone"] {padding: 0.4rem;}
+    div[data-baseweb="select"] {font-size: 0.78rem;}
+    .stDataFrame {font-size: 0.75rem;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 st.title("NCAA Soccer Stat Wheel")
+
+
+def stat_table(active_stats, raw, values):
+    return pd.DataFrame(
+        {
+            "Stat": active_stats,
+            "Value": raw,
+            "Percentile": [round(v, 1) if v is not None else None for v in values],
+        }
+    )
+
 
 mode_label = st.radio("Mode", ["Team Stats", "Individual Stats"], horizontal=True)
 mode = "team" if mode_label == "Team Stats" else "individual"
@@ -13,17 +43,18 @@ aliases_cfg = config_loader.load_aliases(mode)
 stat_meta = aliases_cfg["stats"]
 presets = config_loader.load_presets(mode)
 
-uploaded = st.file_uploader(f"Upload {mode_label} CSV", type="csv", key="primary_csv")
+upload_cols = st.columns([2, 2]) if mode == "individual" else st.columns([1])
+with upload_cols[0]:
+    uploaded = st.file_uploader(f"Upload {mode_label} CSV", type="csv", key="primary_csv")
 
 team_csv_df = None
 if mode == "individual":
-    team_upload = st.file_uploader(
-        "Optional: Team Stats CSV (to cross-reference a player's team)",
-        type="csv",
-        key="team_csv",
-    )
-    if team_upload is not None:
-        team_csv_df = data_io.load_csv(team_upload)
+    with upload_cols[1]:
+        team_upload = st.file_uploader(
+            "Optional: Team CSV (cross-reference)", type="csv", key="team_csv"
+        )
+        if team_upload is not None:
+            team_csv_df = data_io.load_csv(team_upload)
 
 if uploaded is None:
     st.info("Upload a CSV to get started.")
@@ -36,26 +67,31 @@ if entity_col is None:
     st.error("Could not find a name/team identity column in this CSV.")
     st.stop()
 
-st.subheader("Filter")
-filter_col = st.selectbox(
-    "Exclude rows missing/zero in column (optional)", ["(none)"] + list(df.columns)
-)
-if filter_col != "(none)":
-    df = data_io.apply_missing_filter(df, filter_col)
-
 position_col = stat_resolver.resolve_single(df, aliases_cfg.get("position_column", []))
+
+row1 = st.columns(3) if position_col else st.columns(2)
+with row1[0]:
+    filter_col = st.selectbox(
+        "Exclude rows missing/zero in", ["(none)"] + list(df.columns)
+    )
+    if filter_col != "(none)":
+        df = data_io.apply_missing_filter(df, filter_col)
+
 position_filter = None
 if position_col:
-    positions_available = sorted(df[position_col].dropna().unique().tolist())
-    position_filter = st.multiselect(
-        "Restrict percentile baseline to positions (optional)", positions_available
-    )
-    if not position_filter:
-        position_filter = None
+    with row1[1]:
+        positions_available = sorted(df[position_col].dropna().unique().tolist())
+        position_filter = st.multiselect("Restrict baseline to positions", positions_available)
+        if not position_filter:
+            position_filter = None
+    preset_col = row1[2]
+else:
+    preset_col = row1[1]
 
-st.subheader("Stats")
-preset_names = list(presets.keys()) + ["Custom"]
-preset_choice = st.selectbox("Preset", preset_names)
+with preset_col:
+    preset_names = list(presets.keys()) + ["Custom"]
+    preset_choice = st.selectbox("Preset", preset_names)
+
 if preset_choice == "Custom":
     canonical_stats = st.multiselect(
         "Pick exactly 6 stats", list(stat_meta.keys()), max_selections=6
@@ -71,11 +107,13 @@ resolved = stat_resolver.resolve_stats(df, canonical_stats, stat_meta)
 unresolved = [s for s, col in resolved.items() if col is None]
 if unresolved:
     st.warning("Some preset stats weren't found automatically — pick their columns below:")
-    for stat in unresolved:
-        choice = st.selectbox(
-            f"Column for '{stat}'", ["(skip)"] + list(df.columns), key=f"resolve_{mode}_{stat}"
-        )
-        resolved[stat] = None if choice == "(skip)" else choice
+    resolve_cols = st.columns(len(unresolved))
+    for c, stat in zip(resolve_cols, unresolved):
+        with c:
+            choice = st.selectbox(
+                f"'{stat}'", ["(skip)"] + list(df.columns), key=f"resolve_{mode}_{stat}"
+            )
+            resolved[stat] = None if choice == "(skip)" else choice
 
 active_stats = [s for s in canonical_stats if resolved.get(s)]
 if not active_stats:
@@ -104,12 +142,15 @@ def get_raw(idx):
     return [df.loc[idx, resolved[s]] for s in active_stats]
 
 
-st.subheader("Comparison")
-comparison_mode = st.radio("Comparison mode", ["Vs League Average", "Head-to-Head"], horizontal=True)
-chart_kind = st.radio("Chart type", ["Wedges (bar_polar)", "Radar (line_polar)"], horizontal=True)
-kind = "bar_polar" if chart_kind.startswith("Wedges") else "line_polar"
+entity_word = "Team" if mode == "team" else "Player"
 
-entity_name = st.selectbox("Entity", entities)
+row2 = st.columns(3)
+with row2[0]:
+    comparison_mode = st.radio("Comparison", ["Vs League Average", "Head-to-Head"], horizontal=True)
+with row2[1]:
+    entity_label = f"{entity_word} 1" if comparison_mode == "Head-to-Head" else entity_word
+    entity_name = st.selectbox(entity_label, entities)
+
 entity_idx = df[df[entity_col] == entity_name].index[0]
 entity_values = get_values(entity_idx)
 entity_raw = get_raw(entity_idx)
@@ -127,7 +168,8 @@ else:
     if not other_entities:
         st.warning("No other entity available to compare against.")
     else:
-        compare_entity = st.selectbox("Compare against", other_entities)
+        with row2[2]:
+            compare_entity = st.selectbox(f"{entity_word} 2", other_entities)
         compare_idx = df[df[entity_col] == compare_entity].index[0]
         compare_values = get_values(compare_idx)
         compare_raw = get_raw(compare_idx)
@@ -141,9 +183,23 @@ fig = charts.build_wheel(
     compare_values=compare_values,
     compare_name=compare_name,
     compare_raw=compare_raw,
-    kind=kind,
 )
 st.plotly_chart(fig, use_container_width=True)
+
+table_cols = st.columns(2) if compare_values is not None else st.columns(1)
+with table_cols[0]:
+    st.caption(entity_name)
+    st.dataframe(
+        stat_table(active_stats, entity_raw, entity_values), hide_index=True, use_container_width=True
+    )
+if compare_values is not None:
+    with table_cols[1]:
+        st.caption(compare_name)
+        st.dataframe(
+            stat_table(active_stats, compare_raw, compare_values),
+            hide_index=True,
+            use_container_width=True,
+        )
 
 if mode == "individual" and team_csv_df is not None:
     team_aliases_cfg = config_loader.load_aliases("team")
@@ -182,8 +238,27 @@ if mode == "individual" and team_csv_df is not None:
                     raw_values=t_raw,
                     compare_values=[50] * len(team_active),
                     compare_name="League Average",
-                    kind=kind,
                 )
                 st.plotly_chart(team_fig, use_container_width=True)
+                t_cols = st.columns(2)
+                with t_cols[0]:
+                    st.caption(player_team_name)
+                    st.dataframe(
+                        stat_table(team_active, t_raw, t_values),
+                        hide_index=True,
+                        use_container_width=True,
+                    )
+                with t_cols[1]:
+                    st.caption("League Average")
+                    team_baseline = team_csv_df
+                    avg_raw = [
+                        pd.to_numeric(team_baseline[team_resolved[s]], errors="coerce").mean()
+                        for s in team_active
+                    ]
+                    st.dataframe(
+                        stat_table(team_active, avg_raw, [50] * len(team_active)),
+                        hide_index=True,
+                        use_container_width=True,
+                    )
         else:
             st.caption(f"No matching team found in the uploaded team CSV for '{player_team_name}'.")
