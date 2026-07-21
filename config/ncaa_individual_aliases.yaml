@@ -5,6 +5,8 @@ position_column:
 - Position
 team_column:
 - Team
+- team
+- team_name
 stats:
   Games:
     lower_is_better: false

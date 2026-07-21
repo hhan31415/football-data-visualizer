@@ -82,6 +82,9 @@ stats:
     - shooting_goals_per_90
     - shooting-goals-per-90
     - shooting goals per 90
+    - goalsper_90
+    - goalsper 90
+    - goalsper-90
   Assists:
     lower_is_better: false
     aliases:
@@ -129,6 +132,12 @@ stats:
     - ShootingShotsper90
     - shooting shots per 90
     - shooting_shots_per_90
+    - shotsper_90
+    - shotsper 90
+    - shotsper-90
+    - shooting_shotsper_90
+    - shooting shotsper 90
+    - shooting-shotsper-90
   ShotsOnTarget:
     lower_is_better: false
     aliases:
@@ -165,6 +174,9 @@ stats:
     - shooting_x_g
     - Shooting x G
     - shooting-x-g
+    - Shootingx G
+    - shootingx_g
+    - shootingx-g
   ExpectedGoalsPer90:
     lower_is_better: false
     aliases:
@@ -177,6 +189,12 @@ stats:
     - shooting_x_g_per_90
     - shooting-x-g-per-90
     - shooting x g per 90
+    - expectedgoalsper_90
+    - expectedgoalsper 90
+    - expectedgoalsper-90
+    - shootingxgper 90
+    - shootingxgper_90
+    - shootingxgper-90
   ExpectedAssists:
     lower_is_better: false
     aliases:
@@ -194,6 +212,12 @@ stats:
     - Distribution x A
     - distribution-x-a
     - distribution_x_a
+    - passingx_a
+    - passingx-a
+    - Passingx A
+    - distributionx a
+    - distributionx_a
+    - distributionx-a
   ExpectedAssistsPer90:
     lower_is_better: false
     aliases:
@@ -211,6 +235,12 @@ stats:
     - distribution x a per 90
     - DistributionxAper90
     - distribution_x_a_per_90
+    - passingxaper-90
+    - passingxaper_90
+    - passingxaper 90
+    - distributionx aper 90
+    - distributionx_aper_90
+    - distributionx-aper-90
   PassAccuracy:
     lower_is_better: false
     aliases:
@@ -245,6 +275,9 @@ stats:
     - distribution_pass_accuracy_per_90
     - DistributionPassAccuracyPer90
     - distribution-pass-accuracy-per-90
+    - passingpassaccuracyper-90
+    - passingpassaccuracyper_90
+    - passingpassaccuracyper 90
   ChancesCreated:
     lower_is_better: false
     aliases:
@@ -279,6 +312,9 @@ stats:
     - distribution chances created per 90
     - distribution_chances_created_per_90
     - distribution-chances-created-per-90
+    - passing chancescreatedper 90
+    - passing_chancescreatedper_90
+    - passing-chancescreatedper-90
   BigChancesCreated:
     lower_is_better: false
     aliases:
@@ -303,6 +339,12 @@ stats:
     - passing big chances created per 90
     - passing_big_chances_created_per_90
     - passing-big-chances-created-per-90
+    - bigchancescreatedper 90
+    - bigchancescreatedper-90
+    - bigchancescreatedper_90
+    - passingbigchancescreatedper 90
+    - passingbigchancescreatedper-90
+    - passingbigchancescreatedper_90
   LongBallAccuracy:
     lower_is_better: false
     aliases:
@@ -337,6 +379,12 @@ stats:
     - distribution_long_ball_accuracy_per_90
     - distribution-long-ball-accuracy-per-90
     - Distribution Long ball accuracy per 90
+    - longballaccuracyper_90
+    - longballaccuracyper-90
+    - longballaccuracyper 90
+    - passinglongballaccuracyper-90
+    - passinglongballaccuracyper 90
+    - passinglongballaccuracyper_90
   CrossAccuracy:
     lower_is_better: false
     aliases:
@@ -361,6 +409,9 @@ stats:
     - passingcrossaccuracyper90
     - passing_cross_accuracy_per_90
     - passing-cross-accuracy-per-90
+    - passingcrossaccuracyper 90
+    - passingcrossaccuracyper-90
+    - passingcrossaccuracyper_90
   Dribbles:
     lower_is_better: false
     aliases:
@@ -382,6 +433,9 @@ stats:
     - possession_dribbles_per_90
     - possession-dribbles-per-90
     - Possession Dribbles per 90
+    - possessiondribblesper-90
+    - possessiondribblesper 90
+    - possessiondribblesper_90
   DribbleSuccessRate:
     lower_is_better: false
     aliases:
@@ -394,6 +448,9 @@ stats:
     - Possession Dribbles success rate
     - PossessionDribblessuccessrate
     - possession_dribbles_success_rate
+    - possession-dribblessuccessrate
+    - possession dribblessuccessrate
+    - possession_dribblessuccessrate
   DribbleSuccessRatePer90:
     lower_is_better: false
     aliases:
@@ -418,6 +475,10 @@ stats:
     - PossessionDuelswon%
     - possession_duels_won_%
     - possession-duels-won-%
+    - possession duelswon
+    - possession-duelswon
+    - possessionduelswon
+    - possession_duelswon
   DuelsWonPctPer90:
     lower_is_better: false
     aliases:
@@ -430,6 +491,13 @@ stats:
     - possession-duels-won-%-per-90
     - possession_duels_won_%_per_90
     - possessionDuelsWon%Per90
+    - duelswonpctper_90
+    - duelswonpctper 90
+    - duelswonpctper-90
+    - possession Duels Won Per 90
+    - possession_duels_won_per_90
+    - possessionDuelsWonPer90
+    - possession-duels-won-per-90
   AerialsWonPct:
     lower_is_better: false
     aliases:
@@ -442,6 +510,7 @@ stats:
     - possessionaerialswon%
     - possession-aerials-won-%
     - possession_aerials_won_%
+    - possessionaerialswon
   AerialsWonPctPer90:
     lower_is_better: false
     aliases:
@@ -454,6 +523,10 @@ stats:
     - possession aerials won % per 90
     - possession-aerials-won-%-per-90
     - possession_aerials_won_%_per_90
+    - possession-aerialswon-per-90
+    - PossessionAerialswonPer90
+    - possession_aerialswon_per_90
+    - possession aerialswon per 90
   Touches:
     lower_is_better: false
     aliases:
@@ -475,6 +548,12 @@ stats:
     - Possession Touches per 90
     - possession-touches-per-90
     - possession_touches_per_90
+    - touchesper_90
+    - touchesper 90
+    - touchesper-90
+    - possessiontouchesper_90
+    - possessiontouchesper-90
+    - possessiontouchesper 90
   TouchesInOppositionBox:
     lower_is_better: false
     aliases:
@@ -499,6 +578,9 @@ stats:
     - possession_touches_in_opposition_box_per_90
     - PossessionTouchesInOppositionBoxPer90
     - possession-touches-in-opposition-box-per-90
+    - touchesinoppositionboxper_90
+    - touchesinoppositionboxper-90
+    - touchesinoppositionboxper 90
   FoulsWon:
     lower_is_better: false
     aliases:
@@ -523,6 +605,12 @@ stats:
     - possession_fouls_won_per_90
     - Possession Fouls won per 90
     - possession-fouls-won-per-90
+    - foulswonper-90
+    - foulswonper 90
+    - foulswonper_90
+    - Possession Foulswonper 90
+    - possession-foulswonper-90
+    - possession_foulswonper_90
   Tackles:
     lower_is_better: false
     aliases:
@@ -544,6 +632,9 @@ stats:
     - DefendingTacklesper90
     - Defending Tackles per 90
     - defending_tackles_per_90
+    - Defending Tacklesper 90
+    - defending_tacklesper_90
+    - defending-tacklesper-90
   Interceptions:
     lower_is_better: false
     aliases:
@@ -565,6 +656,9 @@ stats:
     - Defending Interceptions per 90
     - defendinginterceptionsper90
     - defending_interceptions_per_90
+    - defendinginterceptionsper_90
+    - defendinginterceptionsper 90
+    - defendinginterceptionsper-90
   Clearances:
     lower_is_better: false
     aliases:
@@ -607,6 +701,9 @@ stats:
     - defendingRecoveriesPer90
     - defending_recoveries_per_90
     - defending-recoveries-per-90
+    - recoveriesper 90
+    - recoveriesper_90
+    - recoveriesper-90
   DefensiveActions:
     lower_is_better: false
     aliases:
@@ -631,6 +728,9 @@ stats:
     - defending defensive actions per 90
     - defending-defensive-actions-per-90
     - DefendingDefensiveactionsper90
+    - defending_defensiveactionsper_90
+    - defending-defensiveactionsper-90
+    - defending defensiveactionsper 90
   FoulsCommitted:
     lower_is_better: true
     aliases:
@@ -655,6 +755,12 @@ stats:
     - defending-fouls-committed-per-90
     - defending fouls committed per 90
     - defending_fouls_committed_per_90
+    - foulscommittedper 90
+    - foulscommittedper-90
+    - foulscommittedper_90
+    - defendingfoulscommittedper 90
+    - defendingfoulscommittedper-90
+    - defendingfoulscommittedper_90
   DribbledPast:
     lower_is_better: true
     aliases:
@@ -696,6 +802,12 @@ stats:
     - All Competitions Yellow cards
     - all-competitions-yellow-cards
     - all_competitions_yellow_cards
+    - discipline_yellowcards
+    - discipline-yellowcards
+    - discipline yellowcards
+    - all_competitions_yellowcards
+    - All Competitions Yellowcards
+    - all-competitions-yellowcards
   YellowCardsPer90:
     lower_is_better: true
     aliases:
@@ -737,6 +849,12 @@ stats:
     - DisciplineRedcardsper90
     - discipline-red-cards-per-90
     - discipline red cards per 90
+    - redcardsper 90
+    - redcardsper_90
+    - redcardsper-90
+    - discipline redcardsper 90
+    - discipline_redcardsper_90
+    - discipline-redcardsper-90
   Saves:
     lower_is_better: false
     aliases:
@@ -758,6 +876,12 @@ stats:
     - goalkeepingsavesper90
     - goalkeeping_saves_per_90
     - goalkeeping-saves-per-90
+    - savesper_90
+    - savesper 90
+    - savesper-90
+    - goalkeepingsavesper 90
+    - goalkeepingsavesper_90
+    - goalkeepingsavesper-90
   SavePct:
     lower_is_better: false
     aliases:
@@ -770,6 +894,9 @@ stats:
     - goalkeeping_save_percentage
     - goalkeeping-save-percentage
     - Goalkeeping Save percentage
+    - Goalkeeping Savepercentage
+    - goalkeeping_savepercentage
+    - goalkeeping-savepercentage
   SavePctPer90:
     lower_is_better: false
     aliases:
@@ -782,6 +909,12 @@ stats:
     - GoalkeepingSavepercentageper90
     - goalkeeping-save-percentage-per-90
     - goalkeeping_save_percentage_per_90
+    - savepctper 90
+    - savepctper-90
+    - savepctper_90
+    - Goalkeeping Savepercentageper 90
+    - goalkeeping_savepercentageper_90
+    - goalkeeping-savepercentageper-90
   GoalsConceded:
     lower_is_better: true
     aliases:
@@ -799,6 +932,12 @@ stats:
     - AllCompetitionsGoalsconceded
     - all-competitions-goals-conceded
     - all competitions goals conceded
+    - goalkeeping goalsconceded
+    - goalkeeping_goalsconceded
+    - goalkeeping-goalsconceded
+    - all_competitions_goalsconceded
+    - All Competitions Goalsconceded
+    - all-competitions-goalsconceded
   GoalsConcededPer90:
     lower_is_better: true
     aliases:
@@ -811,6 +950,9 @@ stats:
     - goalkeeping_goals_conceded_per_90
     - Goalkeeping Goals conceded per 90
     - goalkeeping-goals-conceded-per-90
+    - goalkeepinggoalsconcededper-90
+    - goalkeepinggoalsconcededper 90
+    - goalkeepinggoalsconcededper_90
   GoalsPrevented:
     lower_is_better: false
     aliases:
@@ -823,6 +965,9 @@ stats:
     - goalkeeping goals prevented
     - goalkeeping_goals_prevented
     - goalkeeping-goals-prevented
+    - goalkeeping-goalsprevented
+    - Goalkeeping Goalsprevented
+    - goalkeeping_goalsprevented
   GoalsPreventedPer90:
     lower_is_better: false
     aliases:
@@ -852,6 +997,9 @@ stats:
     - all-competitions-clean-sheets
     - All Competitions Clean sheets
     - all_competitions_clean_sheets
+    - all_competitions_cleansheets
+    - all-competitions-cleansheets
+    - All Competitions Cleansheets
   CleanSheetsPer90:
     lower_is_better: false
     aliases:
@@ -864,6 +1012,12 @@ stats:
     - goalkeepingcleansheetsper90
     - goalkeeping clean sheets per 90
     - goalkeeping_clean_sheets_per_90
+    - cleansheetsper 90
+    - cleansheetsper-90
+    - cleansheetsper_90
+    - goalkeepingcleansheetsper-90
+    - goalkeepingcleansheetsper_90
+    - goalkeepingcleansheetsper 90
   PenaltySavePct:
     lower_is_better: false
     aliases:
@@ -876,6 +1030,10 @@ stats:
     - goalkeeping_penalty_save_%
     - goalkeeping penalty save %
     - goalkeeping-penalty-save-%
+    - goalkeeping-penalty-save
+    - GoalkeepingPenaltySave
+    - goalkeeping_penalty_save
+    - goalkeeping penalty save
   PenaltySavePctPer90:
     lower_is_better: false
     aliases:
@@ -888,3 +1046,126 @@ stats:
     - goalkeeping-penalty-save-%-per-90
     - goalkeeping_penalty_save_%_per_90
     - goalkeeping penalty save % per 90
+    - penaltysavepctper_90
+    - penaltysavepctper 90
+    - penaltysavepctper-90
+    - goalkeepingpenaltysave_per_90
+    - goalkeepingpenaltysave-per-90
+    - goalkeepingpenaltysave per 90
+    - goalkeepingpenaltysavePer90
+  AccuratePasses:
+    lower_is_better: false
+    aliases:
+    - Passing - Accurate passes
+    - Distribution - Accurate passes
+    - AccuratePasses
+    - accurate_passes
+    - accurate-passes
+    - accurate passes
+    - passing-accurate-passes
+    - Passing Accurate passes
+    - passingaccuratepasses
+    - passing_accurate_passes
+    - distribution_accurate_passes
+    - Distribution Accurate passes
+    - DistributionAccuratepasses
+    - distribution-accurate-passes
+  AccuratePassesPer90:
+    lower_is_better: false
+    aliases:
+    - Passing - Accurate passes (per90)
+    - Distribution - Accurate passes (per90)
+    - accuratePassesPer90
+    - Accurate Passes Per 90
+    - accurate-passes-per-90
+    - accurate_passes_per_90
+    - Passing Accurate passes per 90
+    - passing_accurate_passes_per_90
+    - passing-accurate-passes-per-90
+    - passingAccuratePassesPer90
+    - distribution_accurate_passes_per_90
+    - distribution-accurate-passes-per-90
+    - distributionAccuratePassesPer90
+    - distribution accurate passes per 90
+  AccurateLongBalls:
+    lower_is_better: false
+    aliases:
+    - Passing - Accurate long balls
+    - Distribution - Accurate long balls
+    - accurate_long_balls
+    - accurateLongBalls
+    - accurate-long-balls
+    - Accurate Long Balls
+    - passing accurate long balls
+    - PassingAccuratelongballs
+    - passing_accurate_long_balls
+    - passing-accurate-long-balls
+    - distribution-accurate-long-balls
+    - distributionaccuratelongballs
+    - distribution_accurate_long_balls
+    - distribution accurate long balls
+  AccurateLongBallsPer90:
+    lower_is_better: false
+    aliases:
+    - Passing - Accurate long balls (per90)
+    - Distribution - Accurate long balls (per90)
+    - Accurate Long Balls Per 90
+    - accurate-long-balls-per-90
+    - accurate_long_balls_per_90
+    - accurateLongBallsPer90
+    - passing accurate long balls per 90
+    - passingAccurateLongBallsPer90
+    - passing_accurate_long_balls_per_90
+    - passing-accurate-long-balls-per-90
+    - distributionAccurateLongBallsPer90
+    - distribution_accurate_long_balls_per_90
+    - Distribution Accurate long balls per 90
+    - distribution-accurate-long-balls-per-90
+  ErrorLedToGoal:
+    lower_is_better: true
+    aliases:
+    - Goalkeeping - Error led to goal
+    - errorledtogoal
+    - error_led_to_goal
+    - Error Led To Goal
+    - error-led-to-goal
+    - Goalkeeping Error led to goal
+    - goalkeepingerrorledtogoal
+    - goalkeeping_error_led_to_goal
+    - goalkeeping-error-led-to-goal
+  ErrorLedToGoalPer90:
+    lower_is_better: true
+    aliases:
+    - Goalkeeping - Error led to goal (per90)
+    - error_led_to_goal_per_90
+    - errorledtogoalper90
+    - error-led-to-goal-per-90
+    - error led to goal per 90
+    - goalkeeping_error_led_to_goal_per_90
+    - goalkeepingErrorLedToGoalPer90
+    - goalkeeping error led to goal per 90
+    - goalkeeping-error-led-to-goal-per-90
+  ActedAsSweeper:
+    lower_is_better: false
+    aliases:
+    - Goalkeeping - Acted as sweeper
+    - Acted As Sweeper
+    - ActedAsSweeper
+    - acted_as_sweeper
+    - acted-as-sweeper
+    - GoalkeepingActedassweeper
+    - Goalkeeping Acted as sweeper
+    - goalkeeping-acted-as-sweeper
+    - goalkeeping_acted_as_sweeper
+  ActedAsSweeperPer90:
+    lower_is_better: false
+    aliases:
+    - Goalkeeping - Acted as sweeper (per90)
+    - acted-as-sweeper-per-90
+    - acted as sweeper per 90
+    - actedassweeperper90
+    - acted_as_sweeper_per_90
+    - goalkeeping_acted_as_sweeper_per_90
+    - goalkeepingActedAsSweeperPer90
+    - goalkeeping-acted-as-sweeper-per-90
+    - Goalkeeping Acted as sweeper per 90

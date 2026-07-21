@@ -175,6 +175,9 @@ stats:
     - possession-won-final-3-rd-per-match
     - Possession Won Final 3 rd Per Match
     - possession_won_final_3_rd_per_match
+    - possessionwonfinal 3 rdpermatch
+    - possessionwonfinal-3-rdpermatch
+    - possessionwonfinal_3_rdpermatch
   PenaltiesConceded:
     lower_is_better: true
     aliases:

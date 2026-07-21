@@ -1,0 +1,19 @@
+presets:
+  "Attacking Output":
+    x: ExpectedGoalsPer90
+    y: ExpectedAssistsPer90
+  "Movement":
+    x: DribblesPer90
+    y: FoulsWonPer90
+  "Shooting":
+    x: ShotsPer90
+    y: ShotsOnTargetPer90
+  "Passing Accuracy":
+    x: AccuratePassesPer90
+    y: AccurateLongBallsPer90
+  "Fouling":
+    x: TacklesPer90
+    y: FoulsCommittedPer90
+  "Goalkeeper Sweeping":
+    x: ErrorLedToGoalPer90
+    y: ActedAsSweeperPer90

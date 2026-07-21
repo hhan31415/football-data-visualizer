@@ -1,0 +1,10 @@
+presets:
+  "Passing Accuracy":
+    x: AccuratePassesPerMatch
+    y: AccurateLongBallsPerMatch
+  "Fouling":
+    x: TacklesPerMatch
+    y: FoulsPerMatch
+  "Big Chance Conversion":
+    x: BigChances
+    y: BigChancesMissed

@@ -1,5 +1,7 @@
+import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 PRIMARY_COLOR = "#2563eb"  # blue
 COMPARE_COLOR = "#dc2626"  # red
@@ -71,5 +73,85 @@ def build_wheel(
         legend_title_text="",
         margin=dict(t=20, b=20, l=20, r=20),
         font=dict(size=11),
+    )
+    return fig
+
+
+def build_scatter(
+    df: pd.DataFrame,
+    x_col: str,
+    y_col: str,
+    x_label: str,
+    y_label: str,
+    entity_col: str,
+    highlight: list = None,
+    color_col: str = None,
+    show_trend: bool = False,
+    show_avg_lines: bool = False,
+):
+    """Scatter every row in `df` by (x_col, y_col). Optionally colors the base
+    cloud by `color_col` (e.g. position), overlays a manual least-squares trend
+    line and/or mean reference lines, and draws each (name, color) in
+    `highlight` as its own distinct, larger point on top of the cloud."""
+    cols = [entity_col, x_col, y_col] + ([color_col] if color_col else [])
+    plot_df = df[cols].copy()
+    plot_df[x_col] = pd.to_numeric(plot_df[x_col], errors="coerce")
+    plot_df[y_col] = pd.to_numeric(plot_df[y_col], errors="coerce")
+    plot_df = plot_df.dropna(subset=[x_col, y_col])
+
+    fig = px.scatter(
+        plot_df,
+        x=x_col,
+        y=y_col,
+        color=color_col if color_col else None,
+        hover_name=entity_col,
+        labels={x_col: x_label, y_col: y_label},
+    )
+    fig.update_traces(marker=dict(size=7, opacity=0.6))
+
+    if show_trend and len(plot_df) >= 2:
+        xs = plot_df[x_col].to_numpy()
+        ys = plot_df[y_col].to_numpy()
+        slope, intercept = np.polyfit(xs, ys, 1)
+        x_range = [float(xs.min()), float(xs.max())]
+        y_fit = [slope * x + intercept for x in x_range]
+        fig.add_trace(
+            go.Scatter(
+                x=x_range,
+                y=y_fit,
+                mode="lines",
+                name="Trend",
+                line=dict(color="black", dash="dash"),
+                hoverinfo="skip",
+            )
+        )
+
+    if show_avg_lines and len(plot_df) > 0:
+        fig.add_hline(y=plot_df[y_col].mean(), line_dash="dot", line_color="gray")
+        fig.add_vline(x=plot_df[x_col].mean(), line_dash="dot", line_color="gray")
+
+    for name, color in highlight or []:
+        match = plot_df[plot_df[entity_col] == name]
+        if match.empty:
+            continue
+        fig.add_trace(
+            go.Scatter(
+                x=match[x_col],
+                y=match[y_col],
+                mode="markers",
+                name=name,
+                marker=dict(size=14, color=color, line=dict(width=1, color="white")),
+                hovertemplate=(
+                    f"<b>{name}</b><br>{x_label}: %{{x}}<br>{y_label}: %{{y}}<extra></extra>"
+                ),
+            )
+        )
+
+    fig.update_layout(
+        legend_title_text="",
+        margin=dict(t=20, b=20, l=20, r=20),
+        font=dict(size=11),
+        xaxis_title=x_label,
+        yaxis_title=y_label,
     )
     return fig

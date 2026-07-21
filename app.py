@@ -286,3 +286,92 @@ if mode == "individual" and team_csv_df is not None:
                     )
         else:
             st.caption(f"No matching team found in the uploaded team CSV for '{player_team_name}'.")
+
+st.divider()
+st.subheader("Scatter Explorer")
+
+scatter_presets = config_loader.load_scatter_presets(dataset, mode)
+
+scatter_row = st.columns(3) if position_col else st.columns(2)
+with scatter_row[0]:
+    scatter_preset_names = list(scatter_presets.keys()) + ["Custom"]
+    scatter_preset_choice = st.selectbox("Scatter preset", scatter_preset_names, key="scatter_preset")
+
+scatter_position_filter = None
+if position_col:
+    with scatter_row[1]:
+        scatter_positions_available = sorted(df[position_col].dropna().unique().tolist())
+        scatter_position_filter = st.multiselect(
+            "Restrict scatter to positions", scatter_positions_available, key="scatter_position_filter"
+        )
+        if not scatter_position_filter:
+            scatter_position_filter = None
+    scatter_checkbox_col = scatter_row[2]
+else:
+    scatter_checkbox_col = scatter_row[1]
+
+if scatter_preset_choice == "Custom":
+    scatter_display_to_canonical = {}
+    for canonical in stat_meta.keys():
+        label = stat_resolver.display_name(canonical)
+        if label in scatter_display_to_canonical:
+            label = f"{label} ({canonical})"
+        scatter_display_to_canonical[label] = canonical
+    scatter_sorted_labels = sorted(scatter_display_to_canonical.keys())
+    custom_scatter_cols = st.columns(2)
+    with custom_scatter_cols[0]:
+        scatter_x_display = st.selectbox("X stat", scatter_sorted_labels, key="scatter_x")
+    with custom_scatter_cols[1]:
+        default_y_index = min(1, len(scatter_sorted_labels) - 1)
+        scatter_y_display = st.selectbox(
+            "Y stat", scatter_sorted_labels, index=default_y_index, key="scatter_y"
+        )
+    scatter_x_canonical = scatter_display_to_canonical[scatter_x_display]
+    scatter_y_canonical = scatter_display_to_canonical[scatter_y_display]
+else:
+    scatter_pair = scatter_presets[scatter_preset_choice]
+    scatter_x_canonical = scatter_pair["x"]
+    scatter_y_canonical = scatter_pair["y"]
+
+with scatter_checkbox_col:
+    show_trend = st.checkbox("Show trend line", key="scatter_trend")
+    show_avg_lines = st.checkbox("Show average lines", key="scatter_avg_lines")
+
+scatter_resolved = stat_resolver.resolve_stats(df, [scatter_x_canonical, scatter_y_canonical], stat_meta)
+scatter_unresolved = [s for s, col in scatter_resolved.items() if col is None]
+if scatter_unresolved:
+    st.warning("Some scatter stats weren't found automatically — pick their columns below:")
+    scatter_resolve_cols = st.columns(len(scatter_unresolved))
+    for c, stat in zip(scatter_resolve_cols, scatter_unresolved):
+        with c:
+            choice = st.selectbox(
+                f"'{stat_resolver.display_name(stat)}'",
+                ["(skip)"] + list(df.columns),
+                key=f"scatter_resolve_{dataset}_{mode}_{stat}",
+            )
+            scatter_resolved[stat] = None if choice == "(skip)" else choice
+
+if scatter_resolved[scatter_x_canonical] and scatter_resolved[scatter_y_canonical]:
+    scatter_df = df
+    if scatter_position_filter and position_col:
+        scatter_df = scatter_df[scatter_df[position_col].isin(scatter_position_filter)]
+
+    scatter_highlight = [(entity_name, charts.PRIMARY_COLOR)]
+    if comparison_mode == "Head-to-Head" and compare_values is not None:
+        scatter_highlight.append((compare_name, charts.COMPARE_COLOR))
+
+    scatter_fig = charts.build_scatter(
+        scatter_df,
+        scatter_resolved[scatter_x_canonical],
+        scatter_resolved[scatter_y_canonical],
+        stat_resolver.display_name(scatter_x_canonical),
+        stat_resolver.display_name(scatter_y_canonical),
+        entity_col,
+        highlight=scatter_highlight,
+        color_col=position_col,
+        show_trend=show_trend,
+        show_avg_lines=show_avg_lines,
+    )
+    st.plotly_chart(scatter_fig, use_container_width=True)
+else:
+    st.info("Pick valid columns for both scatter stats to render the plot.")
