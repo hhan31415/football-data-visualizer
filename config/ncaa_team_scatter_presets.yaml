@@ -1,0 +1,10 @@
+presets:
+  "Goalkeeping - Save Efficiency":
+    x: TotalSaves
+    y: SavePct
+  "Shooting Efficiency":
+    x: ShotAttempts
+    y: ShotsOnGoal
+  "Goals Against vs Total Goals":
+    x: GoalsAgainst
+    y: TotalGoals

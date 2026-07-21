@@ -52,18 +52,7 @@ aliases_cfg = config_loader.load_aliases(dataset, mode)
 stat_meta = aliases_cfg["stats"]
 presets = config_loader.load_presets(dataset, mode)
 
-upload_cols = st.columns([2, 2]) if mode == "individual" else st.columns([1])
-with upload_cols[0]:
-    uploaded = st.file_uploader(f"Upload {mode_label} CSV", type="csv", key="primary_csv")
-
-team_csv_df = None
-if mode == "individual":
-    with upload_cols[1]:
-        team_upload = st.file_uploader(
-            "Optional: Team CSV (cross-reference)", type="csv", key="team_csv"
-        )
-        if team_upload is not None:
-            team_csv_df = data_io.load_csv(team_upload)
+uploaded = st.file_uploader(f"Upload {mode_label} CSV", type="csv", key="primary_csv")
 
 if uploaded is None:
     st.info("Upload a CSV to get started.")
@@ -224,69 +213,6 @@ if compare_values is not None:
             use_container_width=True,
         )
 
-if mode == "individual" and team_csv_df is not None:
-    team_aliases_cfg = config_loader.load_aliases(dataset, "team")
-    team_stat_meta = team_aliases_cfg["stats"]
-    team_presets = config_loader.load_presets(dataset, "team")
-    team_entity_col = stat_resolver.resolve_single(team_csv_df, team_aliases_cfg.get("entity_column", []))
-    player_team_col = stat_resolver.resolve_single(df, aliases_cfg.get("team_column", ["Team"]))
-
-    if team_entity_col and player_team_col:
-        player_team_name = df.loc[entity_idx, player_team_col]
-        match = team_csv_df[
-            team_csv_df[team_entity_col].astype(str).str.strip() == str(player_team_name).strip()
-        ]
-        if not match.empty:
-            st.subheader(f"{player_team_name} — Team Stats")
-            team_preset_choice = st.selectbox(
-                "Team preset", list(team_presets.keys()), key="team_preset"
-            )
-            team_canonical = team_presets[team_preset_choice]
-            team_resolved = stat_resolver.resolve_stats(team_csv_df, team_canonical, team_stat_meta)
-            team_active = [s for s in team_canonical if team_resolved.get(s)]
-            if team_active:
-                team_active_labels = [stat_resolver.display_name(s) for s in team_active]
-                team_pct_df = percentiles.compute_percentiles(
-                    team_csv_df, {s: team_resolved[s] for s in team_active}, team_stat_meta
-                )
-                team_idx = match.index[0]
-                t_values = [
-                    team_pct_df.loc[team_idx, s] if team_idx in team_pct_df.index else None
-                    for s in team_active
-                ]
-                t_raw = [team_csv_df.loc[team_idx, team_resolved[s]] for s in team_active]
-                team_fig = charts.build_wheel(
-                    team_active_labels,
-                    t_values,
-                    player_team_name,
-                    raw_values=t_raw,
-                    compare_values=[50] * len(team_active),
-                    compare_name="League Average",
-                )
-                st.plotly_chart(team_fig, use_container_width=True)
-                t_cols = st.columns(2)
-                with t_cols[0]:
-                    st.caption(player_team_name)
-                    st.dataframe(
-                        stat_table(team_active_labels, t_raw, t_values),
-                        hide_index=True,
-                        use_container_width=True,
-                    )
-                with t_cols[1]:
-                    st.caption("League Average")
-                    team_baseline = team_csv_df
-                    avg_raw = [
-                        round(pd.to_numeric(team_baseline[team_resolved[s]], errors="coerce").mean(), 2)
-                        for s in team_active
-                    ]
-                    st.dataframe(
-                        stat_table(team_active_labels, avg_raw, [50] * len(team_active)),
-                        hide_index=True,
-                        use_container_width=True,
-                    )
-        else:
-            st.caption(f"No matching team found in the uploaded team CSV for '{player_team_name}'.")
-
 st.divider()
 st.subheader("Scatter Explorer")
 
@@ -372,6 +298,8 @@ if scatter_resolved[scatter_x_canonical] and scatter_resolved[scatter_y_canonica
         show_trend=show_trend,
         show_avg_lines=show_avg_lines,
     )
-    st.plotly_chart(scatter_fig, use_container_width=True)
+    scatter_display_cols = st.columns([1, 3, 1])
+    with scatter_display_cols[1]:
+        st.plotly_chart(scatter_fig, use_container_width=True)
 else:
     st.info("Pick valid columns for both scatter stats to render the plot.")

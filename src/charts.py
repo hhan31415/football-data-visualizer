@@ -121,7 +121,7 @@ def build_scatter(
                 y=y_fit,
                 mode="lines",
                 name="Trend",
-                line=dict(color="black", dash="dash"),
+                line=dict(color="#f59e0b", dash="dash"),
                 hoverinfo="skip",
             )
         )
@@ -153,5 +153,6 @@ def build_scatter(
         font=dict(size=11),
         xaxis_title=x_label,
         yaxis_title=y_label,
+        height=650,
     )
     return fig
