@@ -1,218 +1,890 @@
-entity_column: ["name", "Name"]
-position_column: ["position_group", "position_short", "position", "Pos"]
-team_column: ["team", "Team"]
-
+entity_column:
+- name
+- Name
+position_column:
+- position_group
+- position_short
+- position
+- Pos
+team_column:
+- team
+- Team
 stats:
   Rating:
     lower_is_better: false
-    aliases: ["All Competitions - Rating", "Selected Competition - Rating"]
+    aliases:
+    - All Competitions - Rating
+    - Selected Competition - Rating
+    - rating
+    - all competitions rating
+    - allCompetitionsRating
+    - all-competitions-rating
+    - all_competitions_rating
+    - selectedCompetitionRating
+    - selected-competition-rating
+    - selected competition rating
+    - selected_competition_rating
+    - Match Rating
+    - match_rating
+    - match-rating
+    - matchRating
   Matches:
     lower_is_better: false
-    aliases: ["All Competitions - Matches", "Selected Competition - Matches"]
+    aliases:
+    - All Competitions - Matches
+    - Selected Competition - Matches
+    - Matches
+    - allcompetitionsmatches
+    - all_competitions_matches
+    - all-competitions-matches
+    - all competitions matches
+    - selected-competition-matches
+    - SelectedCompetitionMatches
+    - Selected Competition Matches
+    - selected_competition_matches
   Minutes:
     lower_is_better: false
-    aliases: ["All Competitions - Minutes played", "Selected Competition - Minutes"]
-
+    aliases:
+    - All Competitions - Minutes played
+    - Selected Competition - Minutes
+    - Minutes
+    - all-competitions-minutes-played
+    - all competitions minutes played
+    - allCompetitionsMinutesPlayed
+    - all_competitions_minutes_played
+    - selectedcompetitionminutes
+    - selected_competition_minutes
+    - selected-competition-minutes
+    - selected competition minutes
   Goals:
     lower_is_better: false
-    aliases: ["Shooting - Goals", "All Competitions - Goals"]
+    aliases:
+    - Shooting - Goals
+    - All Competitions - Goals
+    - Goals
+    - ShootingGoals
+    - shooting-goals
+    - shooting goals
+    - shooting_goals
+    - all-competitions-goals
+    - All Competitions Goals
+    - allcompetitionsgoals
+    - all_competitions_goals
   GoalsPer90:
     lower_is_better: false
-    aliases: ["Shooting - Goals (per90)"]
+    aliases:
+    - Shooting - Goals (per90)
+    - goals_per_90
+    - Goals Per 90
+    - goalsper90
+    - goals-per-90
+    - shootingGoalsPer90
+    - shooting_goals_per_90
+    - shooting-goals-per-90
+    - shooting goals per 90
   Assists:
     lower_is_better: false
-    aliases: ["Passing - Assists", "All Competitions - Assists"]
+    aliases:
+    - Passing - Assists
+    - All Competitions - Assists
+    - assists
+    - passingassists
+    - passing-assists
+    - Passing Assists
+    - passing_assists
+    - all competitions assists
+    - allCompetitionsAssists
+    - all-competitions-assists
+    - all_competitions_assists
   AssistsPer90:
     lower_is_better: false
-    aliases: ["Passing - Assists (per90)"]
+    aliases:
+    - Passing - Assists (per90)
+    - AssistsPer90
+    - assists-per-90
+    - assists_per_90
+    - Assists Per 90
+    - PassingAssistsPer90
+    - passing assists per 90
+    - passing-assists-per-90
+    - passing_assists_per_90
   Shots:
     lower_is_better: false
-    aliases: ["Shooting - Shots"]
+    aliases:
+    - Shooting - Shots
+    - Shots
+    - shooting_shots
+    - Shooting Shots
+    - shooting-shots
+    - ShootingShots
   ShotsPer90:
     lower_is_better: false
-    aliases: ["Shooting - Shots (per90)"]
+    aliases:
+    - Shooting - Shots (per90)
+    - shotsper90
+    - shots per 90
+    - shots-per-90
+    - shots_per_90
+    - shooting-shots-per-90
+    - ShootingShotsper90
+    - shooting shots per 90
+    - shooting_shots_per_90
   ShotsOnTarget:
     lower_is_better: false
-    aliases: ["Shooting - Shots on target"]
+    aliases:
+    - Shooting - Shots on target
+    - shots_on_target
+    - ShotsOnTarget
+    - shots on target
+    - shots-on-target
+    - shootingshotsontarget
+    - Shooting Shots on target
+    - shooting-shots-on-target
+    - shooting_shots_on_target
   ShotsOnTargetPer90:
     lower_is_better: false
-    aliases: ["Shooting - Shots on target (per90)"]
+    aliases:
+    - Shooting - Shots on target (per90)
+    - shotsOnTargetPer90
+    - shots_on_target_per_90
+    - shots on target per 90
+    - shots-on-target-per-90
+    - shootingShotsOnTargetPer90
+    - Shooting Shots on target per 90
+    - shooting-shots-on-target-per-90
+    - shooting_shots_on_target_per_90
   ExpectedGoals:
     lower_is_better: false
-    aliases: ["Shooting - xG"]
+    aliases:
+    - Shooting - xG
+    - expected-goals
+    - expectedGoals
+    - expected goals
+    - expected_goals
+    - ShootingxG
+    - shooting_x_g
+    - Shooting x G
+    - shooting-x-g
   ExpectedGoalsPer90:
     lower_is_better: false
-    aliases: ["Shooting - xG (per90)"]
+    aliases:
+    - Shooting - xG (per90)
+    - expectedgoalsper90
+    - expected goals per 90
+    - expected_goals_per_90
+    - expected-goals-per-90
+    - shootingxgper90
+    - shooting_x_g_per_90
+    - shooting-x-g-per-90
+    - shooting x g per 90
   ExpectedAssists:
     lower_is_better: false
-    aliases: ["Passing - xA", "Distribution - xA"]
+    aliases:
+    - Passing - xA
+    - Distribution - xA
+    - ExpectedAssists
+    - expected-assists
+    - expected assists
+    - expected_assists
+    - passing_x_a
+    - PassingxA
+    - Passing x A
+    - passing-x-a
+    - DistributionxA
+    - Distribution x A
+    - distribution-x-a
+    - distribution_x_a
   ExpectedAssistsPer90:
     lower_is_better: false
-    aliases: ["Passing - xA (per90)", "Distribution - xA (per90)"]
-
+    aliases:
+    - Passing - xA (per90)
+    - Distribution - xA (per90)
+    - expected-assists-per-90
+    - Expected Assists Per 90
+    - ExpectedAssistsPer90
+    - expected_assists_per_90
+    - passing_x_a_per_90
+    - passingxaper90
+    - Passing x A per 90
+    - passing-x-a-per-90
+    - distribution-x-a-per-90
+    - distribution x a per 90
+    - DistributionxAper90
+    - distribution_x_a_per_90
   PassAccuracy:
     lower_is_better: false
-    aliases: ["Passing - Pass accuracy", "Distribution - Pass accuracy"]
+    aliases:
+    - Passing - Pass accuracy
+    - Distribution - Pass accuracy
+    - PassAccuracy
+    - pass accuracy
+    - pass-accuracy
+    - pass_accuracy
+    - PassingPassAccuracy
+    - passing_pass_accuracy
+    - passing pass accuracy
+    - passing-pass-accuracy
+    - Distribution Pass accuracy
+    - distributionPassAccuracy
+    - distribution_pass_accuracy
+    - distribution-pass-accuracy
   PassAccuracyPer90:
     lower_is_better: false
-    aliases: ["Passing - Pass accuracy (per90)", "Distribution - Pass accuracy (per90)"]
+    aliases:
+    - Passing - Pass accuracy (per90)
+    - Distribution - Pass accuracy (per90)
+    - pass_accuracy_per_90
+    - PassAccuracyPer90
+    - pass-accuracy-per-90
+    - pass accuracy per 90
+    - Passing Pass accuracy per 90
+    - passingpassaccuracyper90
+    - passing-pass-accuracy-per-90
+    - passing_pass_accuracy_per_90
+    - Distribution Pass accuracy per 90
+    - distribution_pass_accuracy_per_90
+    - DistributionPassAccuracyPer90
+    - distribution-pass-accuracy-per-90
   ChancesCreated:
     lower_is_better: false
-    aliases: ["Passing - Chances created", "Distribution - Chances created"]
+    aliases:
+    - Passing - Chances created
+    - Distribution - Chances created
+    - chances_created
+    - chancescreated
+    - chances-created
+    - chances created
+    - passing-chances-created
+    - passingchancescreated
+    - passing_chances_created
+    - passing chances created
+    - DistributionChancesCreated
+    - distribution chances created
+    - distribution_chances_created
+    - distribution-chances-created
   ChancesCreatedPer90:
     lower_is_better: false
-    aliases: ["Passing - Chances created (per90)", "Distribution - Chances created (per90)"]
+    aliases:
+    - Passing - Chances created (per90)
+    - Distribution - Chances created (per90)
+    - Chances Created Per 90
+    - ChancesCreatedPer90
+    - chances-created-per-90
+    - chances_created_per_90
+    - PassingChancescreatedper90
+    - passing chances created per 90
+    - passing_chances_created_per_90
+    - passing-chances-created-per-90
+    - DistributionChancesCreatedPer90
+    - distribution chances created per 90
+    - distribution_chances_created_per_90
+    - distribution-chances-created-per-90
   BigChancesCreated:
     lower_is_better: false
-    aliases: ["Passing - Big chances created"]
+    aliases:
+    - Passing - Big chances created
+    - big chances created
+    - big_chances_created
+    - bigchancescreated
+    - big-chances-created
+    - PassingBigChancesCreated
+    - Passing Big chances created
+    - passing-big-chances-created
+    - passing_big_chances_created
   BigChancesCreatedPer90:
     lower_is_better: false
-    aliases: ["Passing - Big chances created (per90)"]
+    aliases:
+    - Passing - Big chances created (per90)
+    - bigchancescreatedper90
+    - big_chances_created_per_90
+    - Big Chances Created Per 90
+    - big-chances-created-per-90
+    - passingbigchancescreatedper90
+    - passing big chances created per 90
+    - passing_big_chances_created_per_90
+    - passing-big-chances-created-per-90
   LongBallAccuracy:
     lower_is_better: false
-    aliases: ["Passing - Long ball accuracy", "Distribution - Long ball accuracy"]
+    aliases:
+    - Passing - Long ball accuracy
+    - Distribution - Long ball accuracy
+    - Long Ball Accuracy
+    - longBallAccuracy
+    - long_ball_accuracy
+    - long-ball-accuracy
+    - passingLongBallAccuracy
+    - Passing Long ball accuracy
+    - passing-long-ball-accuracy
+    - passing_long_ball_accuracy
+    - distributionlongballaccuracy
+    - distribution_long_ball_accuracy
+    - distribution-long-ball-accuracy
+    - Distribution Long ball accuracy
   LongBallAccuracyPer90:
     lower_is_better: false
-    aliases: ["Passing - Long ball accuracy (per90)", "Distribution - Long ball accuracy (per90)"]
+    aliases:
+    - Passing - Long ball accuracy (per90)
+    - Distribution - Long ball accuracy (per90)
+    - Long Ball Accuracy Per 90
+    - long_ball_accuracy_per_90
+    - longballaccuracyper90
+    - long-ball-accuracy-per-90
+    - passing long ball accuracy per 90
+    - passing-long-ball-accuracy-per-90
+    - passinglongballaccuracyper90
+    - passing_long_ball_accuracy_per_90
+    - distributionLongBallAccuracyPer90
+    - distribution_long_ball_accuracy_per_90
+    - distribution-long-ball-accuracy-per-90
+    - Distribution Long ball accuracy per 90
   CrossAccuracy:
     lower_is_better: false
-    aliases: ["Passing - Cross accuracy"]
+    aliases:
+    - Passing - Cross accuracy
+    - cross_accuracy
+    - CrossAccuracy
+    - cross-accuracy
+    - Cross Accuracy
+    - passing_cross_accuracy
+    - Passing Cross accuracy
+    - passingCrossAccuracy
+    - passing-cross-accuracy
   CrossAccuracyPer90:
     lower_is_better: false
-    aliases: ["Passing - Cross accuracy (per90)"]
-
+    aliases:
+    - Passing - Cross accuracy (per90)
+    - cross-accuracy-per-90
+    - CrossAccuracyPer90
+    - cross_accuracy_per_90
+    - Cross Accuracy Per 90
+    - Passing Cross accuracy per 90
+    - passingcrossaccuracyper90
+    - passing_cross_accuracy_per_90
+    - passing-cross-accuracy-per-90
   Dribbles:
     lower_is_better: false
-    aliases: ["Possession - Dribbles"]
+    aliases:
+    - Possession - Dribbles
+    - Dribbles
+    - possession-dribbles
+    - possessiondribbles
+    - Possession Dribbles
+    - possession_dribbles
   DribblesPer90:
     lower_is_better: false
-    aliases: ["Possession - Dribbles (per90)"]
+    aliases:
+    - Possession - Dribbles (per90)
+    - dribblesPer90
+    - Dribbles Per 90
+    - dribbles-per-90
+    - dribbles_per_90
+    - possessiondribblesper90
+    - possession_dribbles_per_90
+    - possession-dribbles-per-90
+    - Possession Dribbles per 90
   DribbleSuccessRate:
     lower_is_better: false
-    aliases: ["Possession - Dribbles success rate"]
+    aliases:
+    - Possession - Dribbles success rate
+    - dribble-success-rate
+    - dribbleSuccessRate
+    - Dribble Success Rate
+    - dribble_success_rate
+    - possession-dribbles-success-rate
+    - Possession Dribbles success rate
+    - PossessionDribblessuccessrate
+    - possession_dribbles_success_rate
   DribbleSuccessRatePer90:
     lower_is_better: false
-    aliases: ["Possession - Dribbles success rate (per90)"]
+    aliases:
+    - Possession - Dribbles success rate (per90)
+    - dribble success rate per 90
+    - DribbleSuccessRatePer90
+    - dribble-success-rate-per-90
+    - dribble_success_rate_per_90
+    - possessionDribblesSuccessRatePer90
+    - possession dribbles success rate per 90
+    - possession-dribbles-success-rate-per-90
+    - possession_dribbles_success_rate_per_90
   DuelsWonPct:
     lower_is_better: false
-    aliases: ["Possession - Duels won %"]
+    aliases:
+    - Possession - Duels won %
+    - duels-won-pct
+    - duelswonpct
+    - duels won pct
+    - duels_won_pct
+    - possession duels won %
+    - PossessionDuelswon%
+    - possession_duels_won_%
+    - possession-duels-won-%
   DuelsWonPctPer90:
     lower_is_better: false
-    aliases: ["Possession - Duels won % (per90)"]
+    aliases:
+    - Possession - Duels won % (per90)
+    - duels_won_pct_per_90
+    - duelswonpctper90
+    - duels won pct per 90
+    - duels-won-pct-per-90
+    - possession duels won % per 90
+    - possession-duels-won-%-per-90
+    - possession_duels_won_%_per_90
+    - possessionDuelsWon%Per90
   AerialsWonPct:
     lower_is_better: false
-    aliases: ["Possession - Aerials won %"]
+    aliases:
+    - Possession - Aerials won %
+    - aerialswonpct
+    - Aerials Won Pct
+    - aerials_won_pct
+    - aerials-won-pct
+    - possession aerials won %
+    - possessionaerialswon%
+    - possession-aerials-won-%
+    - possession_aerials_won_%
   AerialsWonPctPer90:
     lower_is_better: false
-    aliases: ["Possession - Aerials won % (per90)"]
+    aliases:
+    - Possession - Aerials won % (per90)
+    - AerialsWonPctPer90
+    - Aerials Won Pct Per 90
+    - aerials-won-pct-per-90
+    - aerials_won_pct_per_90
+    - PossessionAerialswon%per90
+    - possession aerials won % per 90
+    - possession-aerials-won-%-per-90
+    - possession_aerials_won_%_per_90
   Touches:
     lower_is_better: false
-    aliases: ["Possession - Touches"]
+    aliases:
+    - Possession - Touches
+    - Touches
+    - possession-touches
+    - PossessionTouches
+    - possession touches
+    - possession_touches
   TouchesPer90:
     lower_is_better: false
-    aliases: ["Possession - Touches (per90)"]
+    aliases:
+    - Possession - Touches (per90)
+    - touchesper90
+    - touches-per-90
+    - touches_per_90
+    - Touches Per 90
+    - possessiontouchesper90
+    - Possession Touches per 90
+    - possession-touches-per-90
+    - possession_touches_per_90
   TouchesInOppositionBox:
     lower_is_better: false
-    aliases: ["Possession - Touches in opposition box"]
+    aliases:
+    - Possession - Touches in opposition box
+    - TouchesInOppositionBox
+    - touches in opposition box
+    - touches-in-opposition-box
+    - touches_in_opposition_box
+    - possessiontouchesinoppositionbox
+    - possession touches in opposition box
+    - possession_touches_in_opposition_box
+    - possession-touches-in-opposition-box
   TouchesInOppositionBoxPer90:
     lower_is_better: false
-    aliases: ["Possession - Touches in opposition box (per90)"]
+    aliases:
+    - Possession - Touches in opposition box (per90)
+    - Touches In Opposition Box Per 90
+    - touchesinoppositionboxper90
+    - touches-in-opposition-box-per-90
+    - touches_in_opposition_box_per_90
+    - Possession Touches in opposition box per 90
+    - possession_touches_in_opposition_box_per_90
+    - PossessionTouchesInOppositionBoxPer90
+    - possession-touches-in-opposition-box-per-90
   FoulsWon:
     lower_is_better: false
-    aliases: ["Possession - Fouls won"]
+    aliases:
+    - Possession - Fouls won
+    - foulsWon
+    - Fouls Won
+    - fouls-won
+    - fouls_won
+    - possessionfoulswon
+    - possession fouls won
+    - possession-fouls-won
+    - possession_fouls_won
   FoulsWonPer90:
     lower_is_better: false
-    aliases: ["Possession - Fouls won (per90)"]
-
+    aliases:
+    - Possession - Fouls won (per90)
+    - foulswonper90
+    - fouls-won-per-90
+    - fouls_won_per_90
+    - fouls won per 90
+    - PossessionFoulswonper90
+    - possession_fouls_won_per_90
+    - Possession Fouls won per 90
+    - possession-fouls-won-per-90
   Tackles:
     lower_is_better: false
-    aliases: ["Defending - Tackles"]
+    aliases:
+    - Defending - Tackles
+    - Tackles
+    - defendingTackles
+    - Defending Tackles
+    - defending-tackles
+    - defending_tackles
   TacklesPer90:
     lower_is_better: false
-    aliases: ["Defending - Tackles (per90)"]
+    aliases:
+    - Defending - Tackles (per90)
+    - Tackles Per 90
+    - tackles_per_90
+    - TacklesPer90
+    - tackles-per-90
+    - defending-tackles-per-90
+    - DefendingTacklesper90
+    - Defending Tackles per 90
+    - defending_tackles_per_90
   Interceptions:
     lower_is_better: false
-    aliases: ["Defending - Interceptions"]
+    aliases:
+    - Defending - Interceptions
+    - Interceptions
+    - defending-interceptions
+    - Defending Interceptions
+    - DefendingInterceptions
+    - defending_interceptions
   InterceptionsPer90:
     lower_is_better: false
-    aliases: ["Defending - Interceptions (per90)"]
+    aliases:
+    - Defending - Interceptions (per90)
+    - InterceptionsPer90
+    - interceptions-per-90
+    - Interceptions Per 90
+    - interceptions_per_90
+    - defending-interceptions-per-90
+    - Defending Interceptions per 90
+    - defendinginterceptionsper90
+    - defending_interceptions_per_90
   Clearances:
     lower_is_better: false
-    aliases: ["Defending - Clearances"]
+    aliases:
+    - Defending - Clearances
+    - clearances
+    - defendingClearances
+    - defending clearances
+    - defending_clearances
+    - defending-clearances
   ClearancesPer90:
     lower_is_better: false
-    aliases: ["Defending - Clearances (per90)"]
+    aliases:
+    - Defending - Clearances (per90)
+    - clearances per 90
+    - clearancesPer90
+    - clearances_per_90
+    - clearances-per-90
+    - DefendingClearancesPer90
+    - Defending Clearances per 90
+    - defending-clearances-per-90
+    - defending_clearances_per_90
   Recoveries:
     lower_is_better: false
-    aliases: ["Defending - Recoveries"]
+    aliases:
+    - Defending - Recoveries
+    - recoveries
+    - Defending Recoveries
+    - defendingRecoveries
+    - defending-recoveries
+    - defending_recoveries
   RecoveriesPer90:
     lower_is_better: false
-    aliases: ["Defending - Recoveries (per90)"]
+    aliases:
+    - Defending - Recoveries (per90)
+    - recoveriesper90
+    - Recoveries Per 90
+    - recoveries-per-90
+    - recoveries_per_90
+    - defending recoveries per 90
+    - defendingRecoveriesPer90
+    - defending_recoveries_per_90
+    - defending-recoveries-per-90
   DefensiveActions:
     lower_is_better: false
-    aliases: ["Defending - Defensive actions"]
+    aliases:
+    - Defending - Defensive actions
+    - defensiveActions
+    - defensive_actions
+    - Defensive Actions
+    - defensive-actions
+    - defendingDefensiveActions
+    - defending-defensive-actions
+    - Defending Defensive actions
+    - defending_defensive_actions
   DefensiveActionsPer90:
     lower_is_better: false
-    aliases: ["Defending - Defensive actions (per90)"]
+    aliases:
+    - Defending - Defensive actions (per90)
+    - Defensive Actions Per 90
+    - defensiveActionsPer90
+    - defensive_actions_per_90
+    - defensive-actions-per-90
+    - defending_defensive_actions_per_90
+    - defending defensive actions per 90
+    - defending-defensive-actions-per-90
+    - DefendingDefensiveactionsper90
   FoulsCommitted:
     lower_is_better: true
-    aliases: ["Defending - Fouls committed"]
+    aliases:
+    - Defending - Fouls committed
+    - fouls-committed
+    - fouls committed
+    - fouls_committed
+    - foulscommitted
+    - defendingfoulscommitted
+    - defending_fouls_committed
+    - defending-fouls-committed
+    - defending fouls committed
   FoulsCommittedPer90:
     lower_is_better: true
-    aliases: ["Defending - Fouls committed (per90)"]
+    aliases:
+    - Defending - Fouls committed (per90)
+    - fouls-committed-per-90
+    - foulscommittedper90
+    - Fouls Committed Per 90
+    - fouls_committed_per_90
+    - defendingfoulscommittedper90
+    - defending-fouls-committed-per-90
+    - defending fouls committed per 90
+    - defending_fouls_committed_per_90
   DribbledPast:
     lower_is_better: true
-    aliases: ["Defending - Dribbled past"]
+    aliases:
+    - Defending - Dribbled past
+    - dribbled-past
+    - dribbledPast
+    - Dribbled Past
+    - dribbled_past
+    - defending-dribbled-past
+    - defending_dribbled_past
+    - Defending Dribbled past
+    - DefendingDribbledPast
   DribbledPastPer90:
     lower_is_better: true
-    aliases: ["Defending - Dribbled past (per90)"]
-
+    aliases:
+    - Defending - Dribbled past (per90)
+    - Dribbled Past Per 90
+    - dribbledPastPer90
+    - dribbled_past_per_90
+    - dribbled-past-per-90
+    - defendingDribbledPastPer90
+    - defending dribbled past per 90
+    - defending-dribbled-past-per-90
+    - defending_dribbled_past_per_90
   YellowCards:
     lower_is_better: true
-    aliases: ["Discipline - Yellow cards", "All Competitions - Yellow cards"]
+    aliases:
+    - Discipline - Yellow cards
+    - All Competitions - Yellow cards
+    - yellow-cards
+    - yellowCards
+    - yellow_cards
+    - yellow cards
+    - DisciplineYellowcards
+    - Discipline Yellow cards
+    - discipline_yellow_cards
+    - discipline-yellow-cards
+    - AllCompetitionsYellowcards
+    - All Competitions Yellow cards
+    - all-competitions-yellow-cards
+    - all_competitions_yellow_cards
   YellowCardsPer90:
     lower_is_better: true
-    aliases: ["Discipline - Yellow cards (per90)"]
+    aliases:
+    - Discipline - Yellow cards (per90)
+    - YellowCardsPer90
+    - Yellow Cards Per 90
+    - yellow_cards_per_90
+    - yellow-cards-per-90
+    - Discipline Yellow cards per 90
+    - disciplineYellowCardsPer90
+    - discipline_yellow_cards_per_90
+    - discipline-yellow-cards-per-90
   RedCards:
     lower_is_better: true
-    aliases: ["Discipline - Red cards", "All Competitions - Red cards"]
+    aliases:
+    - Discipline - Red cards
+    - All Competitions - Red cards
+    - red-cards
+    - red cards
+    - red_cards
+    - RedCards
+    - discipline-red-cards
+    - disciplineredcards
+    - discipline red cards
+    - discipline_red_cards
+    - allCompetitionsRedCards
+    - all competitions red cards
+    - all-competitions-red-cards
+    - all_competitions_red_cards
   RedCardsPer90:
     lower_is_better: true
-    aliases: ["Discipline - Red cards (per90)"]
-
+    aliases:
+    - Discipline - Red cards (per90)
+    - red cards per 90
+    - redcardsper90
+    - red_cards_per_90
+    - red-cards-per-90
+    - discipline_red_cards_per_90
+    - DisciplineRedcardsper90
+    - discipline-red-cards-per-90
+    - discipline red cards per 90
   Saves:
     lower_is_better: false
-    aliases: ["Goalkeeping - Saves"]
+    aliases:
+    - Goalkeeping - Saves
+    - saves
+    - goalkeeping-saves
+    - goalkeeping_saves
+    - goalkeepingsaves
+    - goalkeeping saves
   SavesPer90:
     lower_is_better: false
-    aliases: ["Goalkeeping - Saves (per90)"]
+    aliases:
+    - Goalkeeping - Saves (per90)
+    - saves-per-90
+    - savesper90
+    - Saves Per 90
+    - saves_per_90
+    - Goalkeeping Saves per 90
+    - goalkeepingsavesper90
+    - goalkeeping_saves_per_90
+    - goalkeeping-saves-per-90
   SavePct:
     lower_is_better: false
-    aliases: ["Goalkeeping - Save percentage"]
+    aliases:
+    - Goalkeeping - Save percentage
+    - SavePct
+    - save pct
+    - save_pct
+    - save-pct
+    - GoalkeepingSavepercentage
+    - goalkeeping_save_percentage
+    - goalkeeping-save-percentage
+    - Goalkeeping Save percentage
   SavePctPer90:
     lower_is_better: false
-    aliases: ["Goalkeeping - Save percentage (per90)"]
+    aliases:
+    - Goalkeeping - Save percentage (per90)
+    - savepctper90
+    - save pct per 90
+    - save-pct-per-90
+    - save_pct_per_90
+    - goalkeeping save percentage per 90
+    - GoalkeepingSavepercentageper90
+    - goalkeeping-save-percentage-per-90
+    - goalkeeping_save_percentage_per_90
   GoalsConceded:
     lower_is_better: true
-    aliases: ["Goalkeeping - Goals conceded", "All Competitions - Goals conceded"]
+    aliases:
+    - Goalkeeping - Goals conceded
+    - All Competitions - Goals conceded
+    - GoalsConceded
+    - goals_conceded
+    - goals-conceded
+    - goals conceded
+    - Goalkeeping Goals conceded
+    - GoalkeepingGoalsconceded
+    - goalkeeping-goals-conceded
+    - goalkeeping_goals_conceded
+    - all_competitions_goals_conceded
+    - AllCompetitionsGoalsconceded
+    - all-competitions-goals-conceded
+    - all competitions goals conceded
   GoalsConcededPer90:
     lower_is_better: true
-    aliases: ["Goalkeeping - Goals conceded (per90)"]
+    aliases:
+    - Goalkeeping - Goals conceded (per90)
+    - goals_conceded_per_90
+    - goalsConcededPer90
+    - goals conceded per 90
+    - goals-conceded-per-90
+    - goalkeepinggoalsconcededper90
+    - goalkeeping_goals_conceded_per_90
+    - Goalkeeping Goals conceded per 90
+    - goalkeeping-goals-conceded-per-90
   GoalsPrevented:
     lower_is_better: false
-    aliases: ["Goalkeeping - Goals prevented"]
+    aliases:
+    - Goalkeeping - Goals prevented
+    - goalsPrevented
+    - goals_prevented
+    - Goals Prevented
+    - goals-prevented
+    - GoalkeepingGoalsprevented
+    - goalkeeping goals prevented
+    - goalkeeping_goals_prevented
+    - goalkeeping-goals-prevented
   GoalsPreventedPer90:
     lower_is_better: false
-    aliases: ["Goalkeeping - Goals prevented (per90)"]
+    aliases:
+    - Goalkeeping - Goals prevented (per90)
+    - goals prevented per 90
+    - goals-prevented-per-90
+    - goals_prevented_per_90
+    - goalsPreventedPer90
+    - goalkeeping-goals-prevented-per-90
+    - GoalkeepingGoalsPreventedPer90
+    - Goalkeeping Goals prevented per 90
+    - goalkeeping_goals_prevented_per_90
   CleanSheets:
     lower_is_better: false
-    aliases: ["Goalkeeping - Clean sheets", "All Competitions - Clean sheets"]
+    aliases:
+    - Goalkeeping - Clean sheets
+    - All Competitions - Clean sheets
+    - Clean Sheets
+    - cleansheets
+    - clean-sheets
+    - clean_sheets
+    - GoalkeepingCleanSheets
+    - Goalkeeping Clean sheets
+    - goalkeeping_clean_sheets
+    - goalkeeping-clean-sheets
+    - AllCompetitionsCleansheets
+    - all-competitions-clean-sheets
+    - All Competitions Clean sheets
+    - all_competitions_clean_sheets
   CleanSheetsPer90:
     lower_is_better: false
-    aliases: ["Goalkeeping - Clean sheets (per90)"]
+    aliases:
+    - Goalkeeping - Clean sheets (per90)
+    - cleansheetsper90
+    - clean sheets per 90
+    - clean-sheets-per-90
+    - clean_sheets_per_90
+    - goalkeeping-clean-sheets-per-90
+    - goalkeepingcleansheetsper90
+    - goalkeeping clean sheets per 90
+    - goalkeeping_clean_sheets_per_90
   PenaltySavePct:
     lower_is_better: false
-    aliases: ["Goalkeeping - Penalty save %"]
+    aliases:
+    - Goalkeeping - Penalty save %
+    - penalty-save-pct
+    - Penalty Save Pct
+    - PenaltySavePct
+    - penalty_save_pct
+    - GoalkeepingPenaltySave%
+    - goalkeeping_penalty_save_%
+    - goalkeeping penalty save %
+    - goalkeeping-penalty-save-%
   PenaltySavePctPer90:
     lower_is_better: false
-    aliases: ["Goalkeeping - Penalty save % (per90)"]
+    aliases:
+    - Goalkeeping - Penalty save % (per90)
+    - penaltysavepctper90
+    - Penalty Save Pct Per 90
+    - penalty_save_pct_per_90
+    - penalty-save-pct-per-90
+    - goalkeepingpenaltysave%per90
+    - goalkeeping-penalty-save-%-per-90
+    - goalkeeping_penalty_save_%_per_90
+    - goalkeeping penalty save % per 90

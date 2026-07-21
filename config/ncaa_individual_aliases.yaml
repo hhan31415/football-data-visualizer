@@ -1,83 +1,231 @@
-entity_column: ["Name"]
-position_column: ["Pos", "Position"]
-team_column: ["Team"]
-
+entity_column:
+- Name
+position_column:
+- Pos
+- Position
+team_column:
+- Team
 stats:
   Games:
     lower_is_better: false
-    aliases: ["Games", "GP"]
+    aliases:
+    - Games
+    - GP
   GoalieGames:
     lower_is_better: false
-    aliases: ["GoalieGames", "GK Games"]
+    aliases:
+    - GoalieGames
+    - GK Games
+    - goalie games
+    - goalie-games
+    - goalie_games
+    - gkgames
+    - gk-games
+    - gk_games
   TotalGoals:
     lower_is_better: false
-    aliases: ["TotalGoals", "Goals", "G"]
+    aliases:
+    - TotalGoals
+    - Goals
+    - G
+    - Total Goals
+    - total-goals
+    - total_goals
   GoalsPerGame:
     lower_is_better: false
-    aliases: ["GoalsPerGame", "Goals Per Game"]
+    aliases:
+    - GoalsPerGame
+    - Goals Per Game
+    - goals-per-game
+    - goals_per_game
   TotalAssists:
     lower_is_better: false
-    aliases: ["TotalAssists", "Assists", "A"]
+    aliases:
+    - TotalAssists
+    - Assists
+    - A
+    - total-assists
+    - total assists
+    - total_assists
   AssistsPerGame:
     lower_is_better: false
-    aliases: ["AssistsPerGame", "Assists Per Game"]
+    aliases:
+    - AssistsPerGame
+    - Assists Per Game
+    - assists_per_game
+    - assists-per-game
   TotalPoints:
     lower_is_better: false
-    aliases: ["TotalPoints", "Points", "Pts"]
+    aliases:
+    - TotalPoints
+    - Points
+    - Pts
+    - total points
+    - total-points
+    - total_points
   PointsPerGame:
     lower_is_better: false
-    aliases: ["PointsPerGame", "Per Game", "Points Per Game"]
+    aliases:
+    - PointsPerGame
+    - Per Game
+    - Points Per Game
+    - points-per-game
+    - points_per_game
+    - pergame
+    - per-game
+    - per_game
   GameWinningGoals:
     lower_is_better: false
-    aliases: ["GameWinningGoals", "GW Goals", "Game Winning Goals"]
+    aliases:
+    - GameWinningGoals
+    - GW Goals
+    - Game Winning Goals
+    - game-winning-goals
+    - game_winning_goals
+    - gw-goals
+    - gwGoals
+    - gw_goals
   ShotAttempts:
     lower_is_better: false
-    aliases: ["ShotAttempts", "ShAtt", "Shot Attempts"]
+    aliases:
+    - ShotAttempts
+    - ShAtt
+    - Shot Attempts
+    - shot_attempts
+    - shot-attempts
+    - sh-att
+    - Sh Att
+    - sh_att
   ShotsPerGame:
     lower_is_better: false
-    aliases: ["ShotsPerGame", "Shots Per Game"]
+    aliases:
+    - ShotsPerGame
+    - Shots Per Game
+    - shots-per-game
+    - shots_per_game
   ShotsOnGoal:
     lower_is_better: false
-    aliases: ["ShotsOnGoal", "SoG", "Shots on Goal", "shots_on_target"]
+    aliases:
+    - ShotsOnGoal
+    - SoG
+    - Shots on Goal
+    - shots_on_target
+    - shots-on-goal
+    - shots_on_goal
+    - So G
+    - so_g
+    - so-g
+    - ShotsOnTarget
+    - shots on target
+    - shots-on-target
   ShotsOnGoalPerGame:
     lower_is_better: false
-    aliases: ["ShotsOnGoalPerGame", "Shots on Goal Per Game"]
+    aliases:
+    - ShotsOnGoalPerGame
+    - Shots on Goal Per Game
+    - shots-on-goal-per-game
+    - shots_on_goal_per_game
   ShotAccuracyPct:
     lower_is_better: false
-    aliases: ["ShotAccuracyPct", "Shot Accuracy", "Pct."]
+    aliases:
+    - ShotAccuracyPct
+    - Shot Accuracy
+    - Pct.
+    - Shot Accuracy Pct
+    - shot-accuracy-pct
+    - shot_accuracy_pct
+    - shot-accuracy
+    - shot_accuracy
+    - shotAccuracy
+    - Pct
   PKGoals:
     lower_is_better: false
-    aliases: ["PKGoals", "PS"]
+    aliases:
+    - PKGoals
+    - PS
+    - PK Goals
+    - pk_goals
+    - pk-goals
   PKAttempts:
     lower_is_better: false
-    aliases: ["PKAttempts", "psatt", "PK Attempts"]
+    aliases:
+    - PKAttempts
+    - psatt
+    - PK Attempts
+    - pk-attempts
+    - pk_attempts
   PKPct:
     lower_is_better: false
-    aliases: ["PKPct", "PK Pct"]
+    aliases:
+    - PKPct
+    - PK Pct
+    - pk-pct
+    - pk_pct
   YellowCards:
     lower_is_better: true
-    aliases: ["YellowCards", "Yellow Cards"]
+    aliases:
+    - YellowCards
+    - Yellow Cards
+    - yellow-cards
+    - yellow_cards
   RedCards:
     lower_is_better: true
-    aliases: ["RedCards", "Red Cards"]
+    aliases:
+    - RedCards
+    - Red Cards
+    - red-cards
+    - red_cards
   TotalSaves:
     lower_is_better: false
-    aliases: ["TotalSaves", "Saves"]
+    aliases:
+    - TotalSaves
+    - Saves
+    - Total Saves
+    - total_saves
+    - total-saves
   SavesPerGame:
     lower_is_better: false
-    aliases: ["SavesPerGame", "Saves Per Game"]
+    aliases:
+    - SavesPerGame
+    - Saves Per Game
+    - saves_per_game
+    - saves-per-game
   SavePct:
     lower_is_better: false
-    aliases: ["SavePct", "Save Pct"]
+    aliases:
+    - SavePct
+    - Save Pct
+    - save_pct
+    - save-pct
   Shutouts:
     lower_is_better: false
-    aliases: ["Shutouts"]
+    aliases:
+    - Shutouts
   GoalieMinutes:
     lower_is_better: false
-    aliases: ["GoalieMinutes", "GK Minutes", "Min"]
+    aliases:
+    - GoalieMinutes
+    - GK Minutes
+    - Min
+    - goalie minutes
+    - goalie-minutes
+    - goalie_minutes
+    - GkMinutes
+    - gk_minutes
+    - gk-minutes
   GoalsAgainst:
     lower_is_better: true
-    aliases: ["GoalsAgainst", "GA", "Goals Against"]
+    aliases:
+    - GoalsAgainst
+    - GA
+    - Goals Against
+    - goals-against
+    - goals_against
   GAA:
     lower_is_better: true
-    aliases: ["GAA", "Goals Against Average"]
+    aliases:
+    - GAA
+    - Goals Against Average
+    - goalsagainstaverage
+    - goals_against_average
+    - goals-against-average

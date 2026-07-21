@@ -1,103 +1,239 @@
-entity_column: ["team_name", "Team"]
+entity_column:
+- team_name
+- Team
 position_column: []
-
 stats:
   Rating:
     lower_is_better: false
-    aliases: ["FotMob rating", "Rating"]
+    aliases:
+    - FotMob rating
+    - Rating
+    - fot-mob-rating
+    - fot mob rating
+    - fotMobRating
+    - fot_mob_rating
+    - Match Rating
+    - match_rating
+    - match-rating
+    - matchRating
   GoalsPerMatch:
     lower_is_better: false
-    aliases: ["Goals per match"]
+    aliases:
+    - Goals per match
+    - GoalsPerMatch
+    - goals_per_match
+    - goals-per-match
   GoalsConcededPerMatch:
     lower_is_better: true
-    aliases: ["Goals conceded per match"]
+    aliases:
+    - Goals conceded per match
+    - goalsconcededpermatch
+    - goals-conceded-per-match
+    - goals_conceded_per_match
   Possession:
     lower_is_better: false
-    aliases: ["Average possession"]
+    aliases:
+    - Average possession
+    - possession
+    - average-possession
+    - average_possession
+    - averagepossession
   CleanSheets:
     lower_is_better: false
-    aliases: ["Clean sheets"]
+    aliases:
+    - Clean sheets
+    - cleansheets
+    - clean-sheets
+    - clean_sheets
   ExpectedGoals:
     lower_is_better: false
-    aliases: ["Expected goals", "xG"]
+    aliases:
+    - Expected goals
+    - xG
+    - expected-goals
+    - expectedGoals
+    - expected_goals
+    - x g
+    - x_g
+    - x-g
   xGDifference:
     lower_is_better: false
-    aliases: ["xG difference"]
+    aliases:
+    - xG difference
+    - xGDifference
+    - x G Difference
+    - x_g_difference
+    - x-g-difference
   xGConceded:
     lower_is_better: true
-    aliases: ["xG conceded"]
+    aliases:
+    - xG conceded
+    - x g conceded
+    - xGConceded
+    - x-g-conceded
+    - x_g_conceded
   ShotsOnTargetPerMatch:
     lower_is_better: false
-    aliases: ["Shots on target per match"]
+    aliases:
+    - Shots on target per match
+    - shotsontargetpermatch
+    - shots_on_target_per_match
+    - shots-on-target-per-match
   BigChances:
     lower_is_better: false
-    aliases: ["Big chances"]
+    aliases:
+    - Big chances
+    - big_chances
+    - bigChances
+    - big-chances
   BigChancesMissed:
     lower_is_better: true
-    aliases: ["Big chances missed"]
+    aliases:
+    - Big chances missed
+    - big_chances_missed
+    - bigChancesMissed
+    - big-chances-missed
   AccuratePassesPerMatch:
     lower_is_better: false
-    aliases: ["Accurate passes per match"]
+    aliases:
+    - Accurate passes per match
+    - accuratePassesPerMatch
+    - accurate-passes-per-match
+    - accurate_passes_per_match
   AccurateLongBallsPerMatch:
     lower_is_better: false
-    aliases: ["Accurate long balls per match"]
+    aliases:
+    - Accurate long balls per match
+    - accuratelongballspermatch
+    - accurate_long_balls_per_match
+    - accurate-long-balls-per-match
   AccurateCrossesPerMatch:
     lower_is_better: false
-    aliases: ["Accurate crosses per match"]
+    aliases:
+    - Accurate crosses per match
+    - accuratecrossespermatch
+    - accurate-crosses-per-match
+    - accurate_crosses_per_match
   PenaltiesAwarded:
     lower_is_better: false
-    aliases: ["Penalties awarded"]
+    aliases:
+    - Penalties awarded
+    - penaltiesAwarded
+    - penalties-awarded
+    - penalties_awarded
   TouchesInOppositionBox:
     lower_is_better: false
-    aliases: ["Touches in opposition box"]
+    aliases:
+    - Touches in opposition box
+    - TouchesInOppositionBox
+    - touches-in-opposition-box
+    - touches_in_opposition_box
   Corners:
     lower_is_better: false
-    aliases: ["Corners"]
+    aliases:
+    - Corners
   SetPieceGoals:
     lower_is_better: false
-    aliases: ["Set piece goals"]
+    aliases:
+    - Set piece goals
+    - setpiecegoals
+    - set-piece-goals
+    - set_piece_goals
   SetPieceGoalsConceded:
     lower_is_better: true
-    aliases: ["Set piece goals conceded"]
+    aliases:
+    - Set piece goals conceded
+    - set_piece_goals_conceded
+    - setpiecegoalsconceded
+    - set-piece-goals-conceded
   InterceptionsPerMatch:
     lower_is_better: false
-    aliases: ["Interceptions per match"]
+    aliases:
+    - Interceptions per match
+    - interceptionspermatch
+    - interceptions_per_match
+    - interceptions-per-match
   TacklesPerMatch:
     lower_is_better: false
-    aliases: ["Tackles per match"]
+    aliases:
+    - Tackles per match
+    - TacklesPerMatch
+    - tackles_per_match
+    - tackles-per-match
   ClearancesPerMatch:
     lower_is_better: false
-    aliases: ["Clearances per match"]
+    aliases:
+    - Clearances per match
+    - clearances-per-match
+    - ClearancesPerMatch
+    - clearances_per_match
   PossessionWonFinal3rdPerMatch:
     lower_is_better: false
-    aliases: ["Possession won final 3rd per match"]
+    aliases:
+    - Possession won final 3rd per match
+    - possessionwonfinal3rdpermatch
+    - possession-won-final-3-rd-per-match
+    - Possession Won Final 3 rd Per Match
+    - possession_won_final_3_rd_per_match
   PenaltiesConceded:
     lower_is_better: true
-    aliases: ["Penalties conceded"]
+    aliases:
+    - Penalties conceded
+    - penalties_conceded
+    - PenaltiesConceded
+    - penalties-conceded
   SavesPerMatch:
     lower_is_better: false
-    aliases: ["Saves per match"]
+    aliases:
+    - Saves per match
+    - savesPerMatch
+    - saves_per_match
+    - saves-per-match
   FoulsPerMatch:
     lower_is_better: true
-    aliases: ["Fouls per match"]
+    aliases:
+    - Fouls per match
+    - foulspermatch
+    - fouls-per-match
+    - fouls_per_match
   YellowCards:
     lower_is_better: true
-    aliases: ["Yellow cards"]
+    aliases:
+    - Yellow cards
+    - yellow-cards
+    - yellowCards
+    - yellow_cards
   RedCards:
     lower_is_better: true
-    aliases: ["Red cards"]
+    aliases:
+    - Red cards
+    - red-cards
+    - red_cards
+    - RedCards
   Wins:
     lower_is_better: false
-    aliases: ["wins", "Wins"]
+    aliases:
+    - wins
+    - Wins
   Draws:
     lower_is_better: false
-    aliases: ["draws", "Draws"]
+    aliases:
+    - draws
+    - Draws
   Losses:
     lower_is_better: true
-    aliases: ["losses", "Losses"]
+    aliases:
+    - losses
+    - Losses
   Points:
     lower_is_better: false
-    aliases: ["points", "Points"]
+    aliases:
+    - points
+    - Points
   GoalDifference:
     lower_is_better: false
-    aliases: ["goal_difference", "Goal Difference"]
+    aliases:
+    - goal_difference
+    - Goal Difference
+    - goaldifference
+    - goal-difference
