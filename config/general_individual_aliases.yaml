@@ -1,0 +1,218 @@
+entity_column: ["name", "Name"]
+position_column: ["position_group", "position_short", "position", "Pos"]
+team_column: ["team", "Team"]
+
+stats:
+  Rating:
+    lower_is_better: false
+    aliases: ["All Competitions - Rating", "Selected Competition - Rating"]
+  Matches:
+    lower_is_better: false
+    aliases: ["All Competitions - Matches", "Selected Competition - Matches"]
+  Minutes:
+    lower_is_better: false
+    aliases: ["All Competitions - Minutes played", "Selected Competition - Minutes"]
+
+  Goals:
+    lower_is_better: false
+    aliases: ["Shooting - Goals", "All Competitions - Goals"]
+  GoalsPer90:
+    lower_is_better: false
+    aliases: ["Shooting - Goals (per90)"]
+  Assists:
+    lower_is_better: false
+    aliases: ["Passing - Assists", "All Competitions - Assists"]
+  AssistsPer90:
+    lower_is_better: false
+    aliases: ["Passing - Assists (per90)"]
+  Shots:
+    lower_is_better: false
+    aliases: ["Shooting - Shots"]
+  ShotsPer90:
+    lower_is_better: false
+    aliases: ["Shooting - Shots (per90)"]
+  ShotsOnTarget:
+    lower_is_better: false
+    aliases: ["Shooting - Shots on target"]
+  ShotsOnTargetPer90:
+    lower_is_better: false
+    aliases: ["Shooting - Shots on target (per90)"]
+  ExpectedGoals:
+    lower_is_better: false
+    aliases: ["Shooting - xG"]
+  ExpectedGoalsPer90:
+    lower_is_better: false
+    aliases: ["Shooting - xG (per90)"]
+  ExpectedAssists:
+    lower_is_better: false
+    aliases: ["Passing - xA", "Distribution - xA"]
+  ExpectedAssistsPer90:
+    lower_is_better: false
+    aliases: ["Passing - xA (per90)", "Distribution - xA (per90)"]
+
+  PassAccuracy:
+    lower_is_better: false
+    aliases: ["Passing - Pass accuracy", "Distribution - Pass accuracy"]
+  PassAccuracyPer90:
+    lower_is_better: false
+    aliases: ["Passing - Pass accuracy (per90)", "Distribution - Pass accuracy (per90)"]
+  ChancesCreated:
+    lower_is_better: false
+    aliases: ["Passing - Chances created", "Distribution - Chances created"]
+  ChancesCreatedPer90:
+    lower_is_better: false
+    aliases: ["Passing - Chances created (per90)", "Distribution - Chances created (per90)"]
+  BigChancesCreated:
+    lower_is_better: false
+    aliases: ["Passing - Big chances created"]
+  BigChancesCreatedPer90:
+    lower_is_better: false
+    aliases: ["Passing - Big chances created (per90)"]
+  LongBallAccuracy:
+    lower_is_better: false
+    aliases: ["Passing - Long ball accuracy", "Distribution - Long ball accuracy"]
+  LongBallAccuracyPer90:
+    lower_is_better: false
+    aliases: ["Passing - Long ball accuracy (per90)", "Distribution - Long ball accuracy (per90)"]
+  CrossAccuracy:
+    lower_is_better: false
+    aliases: ["Passing - Cross accuracy"]
+  CrossAccuracyPer90:
+    lower_is_better: false
+    aliases: ["Passing - Cross accuracy (per90)"]
+
+  Dribbles:
+    lower_is_better: false
+    aliases: ["Possession - Dribbles"]
+  DribblesPer90:
+    lower_is_better: false
+    aliases: ["Possession - Dribbles (per90)"]
+  DribbleSuccessRate:
+    lower_is_better: false
+    aliases: ["Possession - Dribbles success rate"]
+  DribbleSuccessRatePer90:
+    lower_is_better: false
+    aliases: ["Possession - Dribbles success rate (per90)"]
+  DuelsWonPct:
+    lower_is_better: false
+    aliases: ["Possession - Duels won %"]
+  DuelsWonPctPer90:
+    lower_is_better: false
+    aliases: ["Possession - Duels won % (per90)"]
+  AerialsWonPct:
+    lower_is_better: false
+    aliases: ["Possession - Aerials won %"]
+  AerialsWonPctPer90:
+    lower_is_better: false
+    aliases: ["Possession - Aerials won % (per90)"]
+  Touches:
+    lower_is_better: false
+    aliases: ["Possession - Touches"]
+  TouchesPer90:
+    lower_is_better: false
+    aliases: ["Possession - Touches (per90)"]
+  TouchesInOppositionBox:
+    lower_is_better: false
+    aliases: ["Possession - Touches in opposition box"]
+  TouchesInOppositionBoxPer90:
+    lower_is_better: false
+    aliases: ["Possession - Touches in opposition box (per90)"]
+  FoulsWon:
+    lower_is_better: false
+    aliases: ["Possession - Fouls won"]
+  FoulsWonPer90:
+    lower_is_better: false
+    aliases: ["Possession - Fouls won (per90)"]
+
+  Tackles:
+    lower_is_better: false
+    aliases: ["Defending - Tackles"]
+  TacklesPer90:
+    lower_is_better: false
+    aliases: ["Defending - Tackles (per90)"]
+  Interceptions:
+    lower_is_better: false
+    aliases: ["Defending - Interceptions"]
+  InterceptionsPer90:
+    lower_is_better: false
+    aliases: ["Defending - Interceptions (per90)"]
+  Clearances:
+    lower_is_better: false
+    aliases: ["Defending - Clearances"]
+  ClearancesPer90:
+    lower_is_better: false
+    aliases: ["Defending - Clearances (per90)"]
+  Recoveries:
+    lower_is_better: false
+    aliases: ["Defending - Recoveries"]
+  RecoveriesPer90:
+    lower_is_better: false
+    aliases: ["Defending - Recoveries (per90)"]
+  DefensiveActions:
+    lower_is_better: false
+    aliases: ["Defending - Defensive actions"]
+  DefensiveActionsPer90:
+    lower_is_better: false
+    aliases: ["Defending - Defensive actions (per90)"]
+  FoulsCommitted:
+    lower_is_better: true
+    aliases: ["Defending - Fouls committed"]
+  FoulsCommittedPer90:
+    lower_is_better: true
+    aliases: ["Defending - Fouls committed (per90)"]
+  DribbledPast:
+    lower_is_better: true
+    aliases: ["Defending - Dribbled past"]
+  DribbledPastPer90:
+    lower_is_better: true
+    aliases: ["Defending - Dribbled past (per90)"]
+
+  YellowCards:
+    lower_is_better: true
+    aliases: ["Discipline - Yellow cards", "All Competitions - Yellow cards"]
+  YellowCardsPer90:
+    lower_is_better: true
+    aliases: ["Discipline - Yellow cards (per90)"]
+  RedCards:
+    lower_is_better: true
+    aliases: ["Discipline - Red cards", "All Competitions - Red cards"]
+  RedCardsPer90:
+    lower_is_better: true
+    aliases: ["Discipline - Red cards (per90)"]
+
+  Saves:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Saves"]
+  SavesPer90:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Saves (per90)"]
+  SavePct:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Save percentage"]
+  SavePctPer90:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Save percentage (per90)"]
+  GoalsConceded:
+    lower_is_better: true
+    aliases: ["Goalkeeping - Goals conceded", "All Competitions - Goals conceded"]
+  GoalsConcededPer90:
+    lower_is_better: true
+    aliases: ["Goalkeeping - Goals conceded (per90)"]
+  GoalsPrevented:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Goals prevented"]
+  GoalsPreventedPer90:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Goals prevented (per90)"]
+  CleanSheets:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Clean sheets", "All Competitions - Clean sheets"]
+  CleanSheetsPer90:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Clean sheets (per90)"]
+  PenaltySavePct:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Penalty save %"]
+  PenaltySavePctPer90:
+    lower_is_better: false
+    aliases: ["Goalkeeping - Penalty save % (per90)"]

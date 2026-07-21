@@ -1,0 +1,29 @@
+presets:
+  Overall:
+    - Points
+    - GoalDifference
+    - Rating
+    - GoalsPerMatch
+    - GoalsConcededPerMatch
+    - xGDifference
+  Attack:
+    - GoalsPerMatch
+    - ExpectedGoals
+    - ShotsOnTargetPerMatch
+    - BigChances
+    - AccuratePassesPerMatch
+    - TouchesInOppositionBox
+  Defense:
+    - GoalsConcededPerMatch
+    - CleanSheets
+    - TacklesPerMatch
+    - InterceptionsPerMatch
+    - ClearancesPerMatch
+    - SavesPerMatch
+  Discipline:
+    - FoulsPerMatch
+    - YellowCards
+    - RedCards
+    - PenaltiesConceded
+    - SetPieceGoalsConceded
+    - GoalsConcededPerMatch

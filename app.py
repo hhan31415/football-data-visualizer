@@ -3,7 +3,7 @@ import streamlit as st
 
 from src import charts, config_loader, data_io, percentiles, stat_resolver
 
-st.set_page_config(page_title="NCAA Soccer Stat Wheel", layout="wide")
+st.set_page_config(page_title="Soccer Stat Wheel", layout="wide")
 
 st.markdown(
     """
@@ -23,7 +23,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-st.title("NCAA Soccer Stat Wheel")
+st.title("Football Data Visualizer")
 
 
 def stat_table(active_stats, raw, values):
@@ -36,12 +36,21 @@ def stat_table(active_stats, raw, values):
     )
 
 
-mode_label = st.radio("Mode", ["Team Stats", "Individual Stats"], horizontal=True)
-mode = "team" if mode_label == "Team Stats" else "individual"
+row0 = st.columns(2)
+with row0[0]:
+    dataset_label = st.radio(
+        "Dataset", ["NCAA", "General"], horizontal=True,
+        help="NCAA uses the built-in NCAA soccer stat presets. General is dataset-agnostic "
+        "(seeded from FotMob/MLS-style exports) for any team/player CSV.",
+    )
+    dataset = "ncaa" if dataset_label == "NCAA" else "general"
+with row0[1]:
+    mode_label = st.radio("Mode", ["Team Stats", "Individual Stats"], horizontal=True)
+    mode = "team" if mode_label == "Team Stats" else "individual"
 
-aliases_cfg = config_loader.load_aliases(mode)
+aliases_cfg = config_loader.load_aliases(dataset, mode)
 stat_meta = aliases_cfg["stats"]
-presets = config_loader.load_presets(mode)
+presets = config_loader.load_presets(dataset, mode)
 
 upload_cols = st.columns([2, 2]) if mode == "individual" else st.columns([1])
 with upload_cols[0]:
@@ -111,7 +120,7 @@ if unresolved:
     for c, stat in zip(resolve_cols, unresolved):
         with c:
             choice = st.selectbox(
-                f"'{stat}'", ["(skip)"] + list(df.columns), key=f"resolve_{mode}_{stat}"
+                f"'{stat}'", ["(skip)"] + list(df.columns), key=f"resolve_{dataset}_{mode}_{stat}"
             )
             resolved[stat] = None if choice == "(skip)" else choice
 
@@ -202,11 +211,11 @@ if compare_values is not None:
         )
 
 if mode == "individual" and team_csv_df is not None:
-    team_aliases_cfg = config_loader.load_aliases("team")
+    team_aliases_cfg = config_loader.load_aliases(dataset, "team")
     team_stat_meta = team_aliases_cfg["stats"]
-    team_presets = config_loader.load_presets("team")
+    team_presets = config_loader.load_presets(dataset, "team")
     team_entity_col = stat_resolver.resolve_single(team_csv_df, team_aliases_cfg.get("entity_column", []))
-    player_team_col = stat_resolver.resolve_single(df, ["Team"])
+    player_team_col = stat_resolver.resolve_single(df, aliases_cfg.get("team_column", ["Team"]))
 
     if team_entity_col and player_team_col:
         player_team_name = df.loc[entity_idx, player_team_col]

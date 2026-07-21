@@ -1,0 +1,60 @@
+presets:
+  Forward:
+    - Goals
+    - ExpectedGoals
+    - Shots
+    - ShotsOnTarget
+    - Assists
+    - Dribbles
+  "Forward (Per90)":
+    - GoalsPer90
+    - ExpectedGoalsPer90
+    - ShotsPer90
+    - ShotsOnTargetPer90
+    - AssistsPer90
+    - DribblesPer90
+
+  Midfielder:
+    - Assists
+    - ExpectedAssists
+    - ChancesCreated
+    - PassAccuracy
+    - Dribbles
+    - Touches
+  "Midfielder (Per90)":
+    - AssistsPer90
+    - ExpectedAssistsPer90
+    - ChancesCreatedPer90
+    - PassAccuracyPer90
+    - DribblesPer90
+    - TouchesPer90
+
+  Defender:
+    - Tackles
+    - Interceptions
+    - Clearances
+    - DuelsWonPct
+    - AerialsWonPct
+    - FoulsCommitted
+  "Defender (Per90)":
+    - TacklesPer90
+    - InterceptionsPer90
+    - ClearancesPer90
+    - DuelsWonPctPer90
+    - AerialsWonPctPer90
+    - FoulsCommittedPer90
+
+  GK:
+    - SavePct
+    - Saves
+    - CleanSheets
+    - GoalsConceded
+    - GoalsPrevented
+    - PenaltySavePct
+  "GK (Per90)":
+    - SavePctPer90
+    - SavesPer90
+    - CleanSheetsPer90
+    - GoalsConcededPer90
+    - GoalsPreventedPer90
+    - PenaltySavePctPer90

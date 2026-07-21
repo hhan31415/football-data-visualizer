@@ -1,0 +1,103 @@
+entity_column: ["team_name", "Team"]
+position_column: []
+
+stats:
+  Rating:
+    lower_is_better: false
+    aliases: ["FotMob rating", "Rating"]
+  GoalsPerMatch:
+    lower_is_better: false
+    aliases: ["Goals per match"]
+  GoalsConcededPerMatch:
+    lower_is_better: true
+    aliases: ["Goals conceded per match"]
+  Possession:
+    lower_is_better: false
+    aliases: ["Average possession"]
+  CleanSheets:
+    lower_is_better: false
+    aliases: ["Clean sheets"]
+  ExpectedGoals:
+    lower_is_better: false
+    aliases: ["Expected goals", "xG"]
+  xGDifference:
+    lower_is_better: false
+    aliases: ["xG difference"]
+  xGConceded:
+    lower_is_better: true
+    aliases: ["xG conceded"]
+  ShotsOnTargetPerMatch:
+    lower_is_better: false
+    aliases: ["Shots on target per match"]
+  BigChances:
+    lower_is_better: false
+    aliases: ["Big chances"]
+  BigChancesMissed:
+    lower_is_better: true
+    aliases: ["Big chances missed"]
+  AccuratePassesPerMatch:
+    lower_is_better: false
+    aliases: ["Accurate passes per match"]
+  AccurateLongBallsPerMatch:
+    lower_is_better: false
+    aliases: ["Accurate long balls per match"]
+  AccurateCrossesPerMatch:
+    lower_is_better: false
+    aliases: ["Accurate crosses per match"]
+  PenaltiesAwarded:
+    lower_is_better: false
+    aliases: ["Penalties awarded"]
+  TouchesInOppositionBox:
+    lower_is_better: false
+    aliases: ["Touches in opposition box"]
+  Corners:
+    lower_is_better: false
+    aliases: ["Corners"]
+  SetPieceGoals:
+    lower_is_better: false
+    aliases: ["Set piece goals"]
+  SetPieceGoalsConceded:
+    lower_is_better: true
+    aliases: ["Set piece goals conceded"]
+  InterceptionsPerMatch:
+    lower_is_better: false
+    aliases: ["Interceptions per match"]
+  TacklesPerMatch:
+    lower_is_better: false
+    aliases: ["Tackles per match"]
+  ClearancesPerMatch:
+    lower_is_better: false
+    aliases: ["Clearances per match"]
+  PossessionWonFinal3rdPerMatch:
+    lower_is_better: false
+    aliases: ["Possession won final 3rd per match"]
+  PenaltiesConceded:
+    lower_is_better: true
+    aliases: ["Penalties conceded"]
+  SavesPerMatch:
+    lower_is_better: false
+    aliases: ["Saves per match"]
+  FoulsPerMatch:
+    lower_is_better: true
+    aliases: ["Fouls per match"]
+  YellowCards:
+    lower_is_better: true
+    aliases: ["Yellow cards"]
+  RedCards:
+    lower_is_better: true
+    aliases: ["Red cards"]
+  Wins:
+    lower_is_better: false
+    aliases: ["wins", "Wins"]
+  Draws:
+    lower_is_better: false
+    aliases: ["draws", "Draws"]
+  Losses:
+    lower_is_better: true
+    aliases: ["losses", "Losses"]
+  Points:
+    lower_is_better: false
+    aliases: ["points", "Points"]
+  GoalDifference:
+    lower_is_better: false
+    aliases: ["goal_difference", "Goal Difference"]

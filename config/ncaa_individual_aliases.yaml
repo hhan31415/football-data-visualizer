@@ -1,5 +1,6 @@
 entity_column: ["Name"]
 position_column: ["Pos", "Position"]
+team_column: ["Team"]
 
 stats:
   Games:
