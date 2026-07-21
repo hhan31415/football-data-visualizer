@@ -1,0 +1,29 @@
+presets:
+  Overall:
+    - WinPct
+    - GoalDiff
+    - GoalsPerGame
+    - GAA
+    - ShotAccuracyPct
+    - SavePct
+  Attack:
+    - GoalsPerGame
+    - ShotAccuracyPct
+    - PointsPerGame
+    - AssistsPerGame
+    - ShotsPerGame
+    - PKPct
+  GK_Defense:
+    - SavePct
+    - GAA
+    - ShutoutPct
+    - SavesPerGame
+    - GoalsAgainst
+    - Shutouts
+  Discipline:
+    - FoulsPerGame
+    - YellowCards
+    - RedCards
+    - TotalFouls
+    - GoalDiff
+    - WinPct

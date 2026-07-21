@@ -1,0 +1,29 @@
+presets:
+  Forward:
+    - GoalsPerGame
+    - ShotAccuracyPct
+    - PointsPerGame
+    - AssistsPerGame
+    - ShotsPerGame
+    - GameWinningGoals
+  Midfielder:
+    - TotalAssists
+    - AssistsPerGame
+    - PointsPerGame
+    - GoalsPerGame
+    - ShotsOnGoal
+    - PKPct
+  Defender:
+    - YellowCards
+    - RedCards
+    - GoalsPerGame
+    - AssistsPerGame
+    - ShotsPerGame
+    - TotalPoints
+  GK:
+    - SavePct
+    - GAA
+    - TotalSaves
+    - SavesPerGame
+    - Shutouts
+    - GoalsAgainst
