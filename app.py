@@ -18,6 +18,29 @@ st.markdown(
     div[data-testid="stFileUploaderDropzone"] {padding: 0.4rem;}
     div[data-baseweb="select"] {font-size: 0.78rem;}
     .stDataFrame {font-size: 0.75rem;}
+
+    /* Tab-styled look for the Mode selector, scoped by its aria-label so no
+    other radio group on the page is affected. */
+    div[role="radiogroup"][aria-label="Mode"] {
+        gap: 0;
+        border-bottom: 2px solid #e5e7eb;
+    }
+    div[role="radiogroup"][aria-label="Mode"] label {
+        margin: 0 !important;
+        padding: 0.4rem 1.2rem !important;
+        border-bottom: 2px solid transparent;
+        border-radius: 0 !important;
+    }
+    div[role="radiogroup"][aria-label="Mode"] label > div:first-child {
+        display: none;
+    }
+    div[role="radiogroup"][aria-label="Mode"] label:has(input:checked) {
+        border-bottom-color: #2563eb;
+    }
+    div[role="radiogroup"][aria-label="Mode"] label:has(input:checked) p {
+        color: #2563eb !important;
+        font-weight: 600;
+    }
     </style>
     """,
     unsafe_allow_html=True,
@@ -59,11 +82,13 @@ def position_multiselect(label, positions_available, key):
     return list(expanded) if expanded else None
 
 
-row0 = st.columns(2)
-with row0[0]:
-    mode_label = st.radio("Mode", ["Team Stats", "Individual Stats"], horizontal=True)
-    mode = "team" if mode_label == "Team Stats" else "individual"
-with row0[1]:
+mode_label = st.radio("Mode", ["Team Stats", "Individual Stats"], horizontal=True, label_visibility="collapsed")
+mode = "team" if mode_label == "Team Stats" else "individual"
+
+upload_row = st.columns(2)
+with upload_row[0]:
+    uploaded = st.file_uploader(f"Upload {mode_label} CSV", type="csv", key="primary_csv")
+with upload_row[1]:
     dataset_label = st.radio(
         "Dataset", ["General", "NCAA"], horizontal=True,
         help="General is dataset-agnostic for any "
@@ -74,8 +99,6 @@ with row0[1]:
 aliases_cfg = config_loader.load_aliases(dataset, mode)
 stat_meta = aliases_cfg["stats"]
 presets = config_loader.load_presets(dataset, mode)
-
-uploaded = st.file_uploader(f"Upload {mode_label} CSV", type="csv", key="primary_csv")
 
 if uploaded is None:
     st.info("Upload a CSV to get started.")
@@ -251,68 +274,78 @@ with wheel_row[1]:
             use_container_width=True,
         )
 
-st.subheader("Scatter Explorer")
+main_two_col = st.columns([3, 2])
 
-scatter_presets = config_loader.load_scatter_presets(dataset, mode)
+with main_two_col[0]:
+    st.subheader("Scatter Explorer")
 
-scatter_row = st.columns(3) if position_col else st.columns(2)
-with scatter_row[0]:
-    scatter_preset_names = list(scatter_presets.keys()) + ["Custom"]
-    scatter_preset_choice = st.selectbox("Scatter preset", scatter_preset_names, key="scatter_preset")
+    scatter_presets = config_loader.load_scatter_presets(dataset, mode)
 
-scatter_position_filter = None
-if position_col:
-    with scatter_row[1]:
-        scatter_positions_available = sorted(df[position_col].dropna().unique().tolist())
-        scatter_position_filter = position_multiselect(
-            "Restrict scatter to positions", scatter_positions_available, key="scatter_position_filter"
-        )
-    scatter_checkbox_col = scatter_row[2]
-else:
-    scatter_checkbox_col = scatter_row[1]
+    scatter_row = st.columns(4) if position_col else st.columns(3)
+    with scatter_row[0]:
+        scatter_preset_names = list(scatter_presets.keys()) + ["Custom"]
+        scatter_preset_choice = st.selectbox("Scatter preset", scatter_preset_names, key="scatter_preset")
 
-if scatter_preset_choice == "Custom":
-    scatter_display_to_canonical = {}
-    for canonical in stat_meta.keys():
-        label = stat_resolver.display_name(canonical)
-        if label in scatter_display_to_canonical:
-            label = f"{label} ({canonical})"
-        scatter_display_to_canonical[label] = canonical
-    scatter_sorted_labels = sorted(scatter_display_to_canonical.keys())
-    custom_scatter_cols = st.columns(2)
-    with custom_scatter_cols[0]:
-        scatter_x_display = st.selectbox("X stat", scatter_sorted_labels, key="scatter_x")
-    with custom_scatter_cols[1]:
-        default_y_index = min(1, len(scatter_sorted_labels) - 1)
-        scatter_y_display = st.selectbox(
-            "Y stat", scatter_sorted_labels, index=default_y_index, key="scatter_y"
-        )
-    scatter_x_canonical = scatter_display_to_canonical[scatter_x_display]
-    scatter_y_canonical = scatter_display_to_canonical[scatter_y_display]
-else:
-    scatter_pair = scatter_presets[scatter_preset_choice]
-    scatter_x_canonical = scatter_pair["x"]
-    scatter_y_canonical = scatter_pair["y"]
-
-with scatter_checkbox_col:
-    show_trend = st.checkbox("Show trend line", key="scatter_trend")
-    show_avg_lines = st.checkbox("Show average lines", key="scatter_avg_lines")
-
-scatter_resolved = stat_resolver.resolve_stats(df, [scatter_x_canonical, scatter_y_canonical], stat_meta)
-scatter_unresolved = [s for s, col in scatter_resolved.items() if col is None]
-if scatter_unresolved:
-    st.warning("Some scatter stats weren't found automatically — pick their columns below:")
-    scatter_resolve_cols = st.columns(len(scatter_unresolved))
-    for c, stat in zip(scatter_resolve_cols, scatter_unresolved):
-        with c:
-            choice = st.selectbox(
-                f"'{stat_resolver.display_name(stat)}'",
-                ["(skip)"] + list(df.columns),
-                key=f"scatter_resolve_{dataset}_{mode}_{stat}",
+    scatter_position_filter = None
+    if position_col:
+        with scatter_row[1]:
+            scatter_positions_available = sorted(df[position_col].dropna().unique().tolist())
+            scatter_position_filter = position_multiselect(
+                "Restrict scatter to positions", scatter_positions_available, key="scatter_position_filter"
             )
-            scatter_resolved[stat] = None if choice == "(skip)" else choice
+        extra_highlight_col = scatter_row[2]
+        scatter_checkbox_col = scatter_row[3]
+    else:
+        extra_highlight_col = scatter_row[1]
+        scatter_checkbox_col = scatter_row[2]
 
-if scatter_resolved[scatter_x_canonical] and scatter_resolved[scatter_y_canonical]:
+    with extra_highlight_col:
+        extra_highlight_options = ["(none)"] + [e for e in entities if e not in {entity_name, compare_name}]
+        extra_highlight_choice = st.selectbox(
+            f"Highlight additional {entity_word.lower()}", extra_highlight_options, key="extra_highlight"
+        )
+
+    with scatter_checkbox_col:
+        show_trend = st.checkbox("Show trend line", key="scatter_trend")
+        show_avg_lines = st.checkbox("Show average lines", key="scatter_avg_lines")
+
+    if scatter_preset_choice == "Custom":
+        scatter_display_to_canonical = {}
+        for canonical in stat_meta.keys():
+            label = stat_resolver.display_name(canonical)
+            if label in scatter_display_to_canonical:
+                label = f"{label} ({canonical})"
+            scatter_display_to_canonical[label] = canonical
+        scatter_sorted_labels = sorted(scatter_display_to_canonical.keys())
+        custom_scatter_cols = st.columns(2)
+        with custom_scatter_cols[0]:
+            scatter_x_display = st.selectbox("X stat", scatter_sorted_labels, key="scatter_x")
+        with custom_scatter_cols[1]:
+            default_y_index = min(1, len(scatter_sorted_labels) - 1)
+            scatter_y_display = st.selectbox(
+                "Y stat", scatter_sorted_labels, index=default_y_index, key="scatter_y"
+            )
+        scatter_x_canonical = scatter_display_to_canonical[scatter_x_display]
+        scatter_y_canonical = scatter_display_to_canonical[scatter_y_display]
+    else:
+        scatter_pair = scatter_presets[scatter_preset_choice]
+        scatter_x_canonical = scatter_pair["x"]
+        scatter_y_canonical = scatter_pair["y"]
+
+    scatter_resolved = stat_resolver.resolve_stats(df, [scatter_x_canonical, scatter_y_canonical], stat_meta)
+    scatter_unresolved = [s for s, col in scatter_resolved.items() if col is None]
+    if scatter_unresolved:
+        st.warning("Some scatter stats weren't found automatically — pick their columns below:")
+        scatter_resolve_cols = st.columns(len(scatter_unresolved))
+        for c, stat in zip(scatter_resolve_cols, scatter_unresolved):
+            with c:
+                choice = st.selectbox(
+                    f"'{stat_resolver.display_name(stat)}'",
+                    ["(skip)"] + list(df.columns),
+                    key=f"scatter_resolve_{dataset}_{mode}_{stat}",
+                )
+                scatter_resolved[stat] = None if choice == "(skip)" else choice
+
     scatter_df = df
     if scatter_position_filter and position_col:
         scatter_df = scatter_df[scatter_df[position_col].isin(scatter_position_filter)]
@@ -325,41 +358,86 @@ if scatter_resolved[scatter_x_canonical] and scatter_resolved[scatter_y_canonica
             scatter_df[entity_col].astype(str) + " (" + scatter_df[team_name_col].astype(str) + ")"
         )
 
-    scatter_x_col = scatter_resolved[scatter_x_canonical]
-    scatter_y_col = scatter_resolved[scatter_y_canonical]
-    scatter_x_numeric = pd.to_numeric(scatter_df[scatter_x_col], errors="coerce")
-    scatter_y_numeric = pd.to_numeric(scatter_df[scatter_y_col], errors="coerce")
-    scatter_overlap_count = int((scatter_x_numeric.notna() & scatter_y_numeric.notna()).sum())
+    scatter_fig = None
+    if scatter_resolved[scatter_x_canonical] and scatter_resolved[scatter_y_canonical]:
+        scatter_x_col = scatter_resolved[scatter_x_canonical]
+        scatter_y_col = scatter_resolved[scatter_y_canonical]
+        scatter_x_numeric = pd.to_numeric(scatter_df[scatter_x_col], errors="coerce")
+        scatter_y_numeric = pd.to_numeric(scatter_df[scatter_y_col], errors="coerce")
+        scatter_overlap_count = int((scatter_x_numeric.notna() & scatter_y_numeric.notna()).sum())
 
-    if scatter_overlap_count == 0:
-        st.warning(
-            "No rows have both stats at once — they may be mutually exclusive by position "
-            "(e.g. one only applies to goalkeepers, the other only to outfield players). "
-            "Try a different pair, or use the position filter above to narrow to compatible players."
-        )
-        scatter_fig = None
-    else:
-        scatter_highlight = [(entity_name, charts.PRIMARY_COLOR)]
-        if comparison_mode == "Head-to-Head" and compare_values is not None:
-            scatter_highlight.append((compare_name, charts.COMPARE_COLOR))
+        if scatter_overlap_count == 0:
+            st.warning(
+                "No rows have both stats at once — they may be mutually exclusive by position "
+                "(e.g. one only applies to goalkeepers, the other only to outfield players). "
+                "Try a different pair, or use the position filter above to narrow to compatible players."
+            )
+        else:
+            scatter_highlight = [(entity_name, charts.PRIMARY_COLOR)]
+            if comparison_mode == "Head-to-Head" and compare_values is not None:
+                scatter_highlight.append((compare_name, charts.COMPARE_COLOR))
+            if extra_highlight_choice != "(none)":
+                scatter_highlight.append((extra_highlight_choice, charts.EXTRA_HIGHLIGHT_COLOR))
 
-        scatter_fig = charts.build_scatter(
-            scatter_df,
-            scatter_x_col,
-            scatter_y_col,
-            stat_resolver.display_name(scatter_x_canonical),
-            stat_resolver.display_name(scatter_y_canonical),
-            entity_col,
-            highlight=scatter_highlight,
-            color_col=position_col,
-            show_trend=show_trend,
-            show_avg_lines=show_avg_lines,
-            label_col=scatter_label_col,
-        )
+            scatter_fig = charts.build_scatter(
+                scatter_df,
+                scatter_x_col,
+                scatter_y_col,
+                stat_resolver.display_name(scatter_x_canonical),
+                stat_resolver.display_name(scatter_y_canonical),
+                entity_col,
+                highlight=scatter_highlight,
+                color_col=position_col,
+                show_trend=show_trend,
+                show_avg_lines=show_avg_lines,
+                label_col=scatter_label_col,
+            )
 
     if scatter_fig is not None:
-        scatter_display_cols = st.columns([1, 3, 1])
-        with scatter_display_cols[1]:
-            st.plotly_chart(scatter_fig, use_container_width=True)
-else:
-    st.info("Pick valid columns for both scatter stats to render the plot.")
+        st.plotly_chart(scatter_fig, use_container_width=True)
+    else:
+        st.info("Pick valid columns for both scatter stats to render the plot.")
+
+with main_two_col[1]:
+    st.subheader("Extrema Finder")
+
+    extrema_display_to_canonical = {}
+    for canonical in stat_meta.keys():
+        label = stat_resolver.display_name(canonical)
+        if label in extrema_display_to_canonical:
+            label = f"{label} ({canonical})"
+        extrema_display_to_canonical[label] = canonical
+    extrema_stat_display = st.selectbox(
+        "Stat", sorted(extrema_display_to_canonical.keys()), key="extrema_stat"
+    )
+    extrema_canonical = extrema_display_to_canonical[extrema_stat_display]
+    extrema_resolved = stat_resolver.resolve_stats(df, [extrema_canonical], stat_meta)
+    extrema_col = extrema_resolved[extrema_canonical]
+
+    if extrema_col is None:
+        st.info("Stat not found in this CSV.")
+    else:
+        extrema_numeric = pd.to_numeric(scatter_df[extrema_col], errors="coerce")
+        extrema_valid = scatter_df.loc[extrema_numeric.notna()].copy()
+        extrema_valid["_extrema_value"] = extrema_numeric[extrema_numeric.notna()]
+
+        if extrema_valid.empty:
+            st.info("No valid values for this stat.")
+        else:
+            def extrema_table(rows_df):
+                return pd.DataFrame(
+                    {
+                        entity_word: [
+                            entity_display_label(rows_df.loc[i, entity_col], i) for i in rows_df.index
+                        ],
+                        "Value": rows_df["_extrema_value"].round(2).tolist(),
+                    }
+                )
+
+            top5 = extrema_valid.nlargest(5, "_extrema_value")
+            bottom5 = extrema_valid.nsmallest(5, "_extrema_value")
+
+            st.caption(f"Top 5 — {extrema_stat_display}")
+            st.dataframe(extrema_table(top5), hide_index=True, use_container_width=True)
+            st.caption(f"Bottom 5 — {extrema_stat_display}")
+            st.dataframe(extrema_table(bottom5), hide_index=True, use_container_width=True)

@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 
 PRIMARY_COLOR = "#2563eb"  # blue
 COMPARE_COLOR = "#dc2626"  # red
+EXTRA_HIGHLIGHT_COLOR = "#9333ea"  # purple, for an additional ad-hoc scatter highlight
 
 # Overrides for the base scatter point cloud's color-by-position; any position
 # value not listed here still gets an auto-assigned color from Plotly's
