@@ -6,6 +6,28 @@ import plotly.graph_objects as go
 PRIMARY_COLOR = "#2563eb"  # blue
 COMPARE_COLOR = "#dc2626"  # red
 
+# Overrides for the base scatter point cloud's color-by-position; any position
+# value not listed here still gets an auto-assigned color from Plotly's
+# default qualitative palette. Covers both the "general" dataset's
+# position_group values and NCAA's short position codes.
+POSITION_COLOR_OVERRIDES = {
+    "defenders": "#16a34a",
+    "Defenders": "#16a34a",
+    "defender": "#16a34a",
+    "Defender": "#16a34a",
+    "D": "#16a34a",
+    "midfielders": PRIMARY_COLOR,
+    "Midfielders": PRIMARY_COLOR,
+    "midfielder": PRIMARY_COLOR,
+    "Midfielder": PRIMARY_COLOR,
+    "M": PRIMARY_COLOR,
+    "attackers": COMPARE_COLOR,
+    "Attackers": COMPARE_COLOR,
+    "attacker": COMPARE_COLOR,
+    "Attacker": COMPARE_COLOR,
+    "F": COMPARE_COLOR,
+}
+
 
 def build_wheel(
     labels: list,
@@ -88,12 +110,18 @@ def build_scatter(
     color_col: str = None,
     show_trend: bool = False,
     show_avg_lines: bool = False,
+    label_col: str = None,
 ):
     """Scatter every row in `df` by (x_col, y_col). Optionally colors the base
     cloud by `color_col` (e.g. position), overlays a manual least-squares trend
     line and/or mean reference lines, and draws each (name, color) in
-    `highlight` as its own distinct, larger point on top of the cloud."""
-    cols = [entity_col, x_col, y_col] + ([color_col] if color_col else [])
+    `highlight` as its own distinct, larger point on top of the cloud.
+
+    `entity_col` is the raw identity column used to match `highlight` names;
+    `label_col` (defaults to `entity_col`) is what's actually shown in hover
+    text and highlight legend entries, e.g. a "Name (Team)" display column."""
+    hover_col = label_col or entity_col
+    cols = list({entity_col, x_col, y_col, hover_col} | ({color_col} if color_col else set()))
     plot_df = df[cols].copy()
     plot_df[x_col] = pd.to_numeric(plot_df[x_col], errors="coerce")
     plot_df[y_col] = pd.to_numeric(plot_df[y_col], errors="coerce")
@@ -104,7 +132,8 @@ def build_scatter(
         x=x_col,
         y=y_col,
         color=color_col if color_col else None,
-        hover_name=entity_col,
+        color_discrete_map=POSITION_COLOR_OVERRIDES if color_col else None,
+        hover_name=hover_col,
         labels={x_col: x_label, y_col: y_label},
     )
     fig.update_traces(marker=dict(size=7, opacity=0.6))
@@ -134,15 +163,16 @@ def build_scatter(
         match = plot_df[plot_df[entity_col] == name]
         if match.empty:
             continue
+        display_name = match[hover_col].iloc[0]
         fig.add_trace(
             go.Scatter(
                 x=match[x_col],
                 y=match[y_col],
                 mode="markers",
-                name=name,
+                name=display_name,
                 marker=dict(size=14, color=color, line=dict(width=1, color="white")),
                 hovertemplate=(
-                    f"<b>{name}</b><br>{x_label}: %{{x}}<br>{y_label}: %{{y}}<extra></extra>"
+                    f"<b>{display_name}</b><br>{x_label}: %{{x}}<br>{y_label}: %{{y}}<extra></extra>"
                 ),
             )
         )

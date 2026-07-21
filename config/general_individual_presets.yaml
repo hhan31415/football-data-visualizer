@@ -1,4 +1,18 @@
 presets:
+  Overall:
+    - Goals
+    - ChancesCreated
+    - Assists
+    - PassAccuracy
+    - Touches
+    - DefensiveActions 
+  Overall (Per90):
+    - GoalsPer90
+    - ChancesCreatedPer90
+    - AssistsPer90
+    - PassAccuracyPer90
+    - TouchesPer90
+    - DefensiveActionsPer90
   Forward:
     - Goals
     - ExpectedGoals

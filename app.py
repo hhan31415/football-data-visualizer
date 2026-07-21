@@ -3,7 +3,7 @@ import streamlit as st
 
 from src import charts, config_loader, data_io, percentiles, stat_resolver
 
-st.set_page_config(page_title="Soccer Stat Wheel", layout="wide")
+st.set_page_config(page_title="Football Data Visualizer", layout="wide")
 
 st.markdown(
     """
@@ -34,6 +34,29 @@ def stat_table(active_stats, raw, values):
             "Percentile": [round(v, 1) if v is not None else None for v in values],
         }
     )
+
+
+NON_GK_OPTION = "Non-Goalkeeper (all outfield)"
+
+
+def is_goalkeeper_position(value):
+    v = str(value).strip().lower()
+    return "gk" in v or "keep" in v
+
+
+def position_multiselect(label, positions_available, key):
+    """Multiselect over `positions_available` plus a convenience option that
+    expands to every non-goalkeeper position at once."""
+    choice = st.multiselect(label, positions_available + [NON_GK_OPTION], key=key)
+    if not choice:
+        return None
+    expanded = set()
+    for p in choice:
+        if p == NON_GK_OPTION:
+            expanded.update(pos for pos in positions_available if not is_goalkeeper_position(pos))
+        else:
+            expanded.add(p)
+    return list(expanded) if expanded else None
 
 
 row0 = st.columns(2)
@@ -67,21 +90,31 @@ if entity_col is None:
 
 position_col = stat_resolver.resolve_single(df, aliases_cfg.get("position_column", []))
 
+team_name_col = None
+if mode == "individual":
+    team_name_col = stat_resolver.resolve_single(df, aliases_cfg.get("team_column", ["Team"]))
+
+
+def entity_display_label(name, idx):
+    """Returns "Name (Team)" for individual-mode players when a team column
+    is available; just the raw name otherwise (team mode, or "League Average")."""
+    if team_name_col is None:
+        return name
+    return f"{name} ({df.loc[idx, team_name_col]})"
+
 row1 = st.columns(3) if position_col else st.columns(2)
 with row1[0]:
-    filter_col = st.selectbox(
-        "Exclude rows missing/zero in", ["(none)"] + list(df.columns)
-    )
-    if filter_col != "(none)":
-        df = data_io.apply_missing_filter(df, filter_col)
+    filter_cols_chosen = st.multiselect("Exclude rows missing/zero in", list(df.columns))
+    for fc in filter_cols_chosen:
+        df = data_io.apply_missing_filter(df, fc)
 
 position_filter = None
 if position_col:
     with row1[1]:
         positions_available = sorted(df[position_col].dropna().unique().tolist())
-        position_filter = st.multiselect("Restrict baseline to positions", positions_available)
-        if not position_filter:
-            position_filter = None
+        position_filter = position_multiselect(
+            "Restrict baseline to positions", positions_available, key="baseline_position_filter"
+        )
     preset_col = row1[2]
 else:
     preset_col = row1[1]
@@ -194,26 +227,30 @@ fig = charts.build_wheel(
     compare_name=compare_name,
     compare_raw=compare_raw,
 )
-st.plotly_chart(fig, use_container_width=True)
 
-table_cols = st.columns(2) if compare_values is not None else st.columns(1)
-with table_cols[0]:
-    st.caption(entity_name)
+wheel_row = st.columns([3, 2])
+with wheel_row[0]:
+    st.plotly_chart(fig, use_container_width=True)
+with wheel_row[1]:
+    st.caption(entity_display_label(entity_name, entity_idx))
     st.dataframe(
         stat_table(active_stat_labels, entity_raw, entity_values),
         hide_index=True,
         use_container_width=True,
     )
-if compare_values is not None:
-    with table_cols[1]:
-        st.caption(compare_name)
+    if compare_values is not None:
+        compare_caption = (
+            entity_display_label(compare_name, compare_idx)
+            if comparison_mode == "Head-to-Head"
+            else compare_name
+        )
+        st.caption(compare_caption)
         st.dataframe(
             stat_table(active_stat_labels, compare_raw, compare_values),
             hide_index=True,
             use_container_width=True,
         )
 
-st.divider()
 st.subheader("Scatter Explorer")
 
 scatter_presets = config_loader.load_scatter_presets(dataset, mode)
@@ -227,11 +264,9 @@ scatter_position_filter = None
 if position_col:
     with scatter_row[1]:
         scatter_positions_available = sorted(df[position_col].dropna().unique().tolist())
-        scatter_position_filter = st.multiselect(
+        scatter_position_filter = position_multiselect(
             "Restrict scatter to positions", scatter_positions_available, key="scatter_position_filter"
         )
-        if not scatter_position_filter:
-            scatter_position_filter = None
     scatter_checkbox_col = scatter_row[2]
 else:
     scatter_checkbox_col = scatter_row[1]
@@ -282,24 +317,49 @@ if scatter_resolved[scatter_x_canonical] and scatter_resolved[scatter_y_canonica
     if scatter_position_filter and position_col:
         scatter_df = scatter_df[scatter_df[position_col].isin(scatter_position_filter)]
 
-    scatter_highlight = [(entity_name, charts.PRIMARY_COLOR)]
-    if comparison_mode == "Head-to-Head" and compare_values is not None:
-        scatter_highlight.append((compare_name, charts.COMPARE_COLOR))
+    scatter_label_col = None
+    if team_name_col:
+        scatter_df = scatter_df.copy()
+        scatter_label_col = "_display_label"
+        scatter_df[scatter_label_col] = (
+            scatter_df[entity_col].astype(str) + " (" + scatter_df[team_name_col].astype(str) + ")"
+        )
 
-    scatter_fig = charts.build_scatter(
-        scatter_df,
-        scatter_resolved[scatter_x_canonical],
-        scatter_resolved[scatter_y_canonical],
-        stat_resolver.display_name(scatter_x_canonical),
-        stat_resolver.display_name(scatter_y_canonical),
-        entity_col,
-        highlight=scatter_highlight,
-        color_col=position_col,
-        show_trend=show_trend,
-        show_avg_lines=show_avg_lines,
-    )
-    scatter_display_cols = st.columns([1, 3, 1])
-    with scatter_display_cols[1]:
-        st.plotly_chart(scatter_fig, use_container_width=True)
+    scatter_x_col = scatter_resolved[scatter_x_canonical]
+    scatter_y_col = scatter_resolved[scatter_y_canonical]
+    scatter_x_numeric = pd.to_numeric(scatter_df[scatter_x_col], errors="coerce")
+    scatter_y_numeric = pd.to_numeric(scatter_df[scatter_y_col], errors="coerce")
+    scatter_overlap_count = int((scatter_x_numeric.notna() & scatter_y_numeric.notna()).sum())
+
+    if scatter_overlap_count == 0:
+        st.warning(
+            "No rows have both stats at once — they may be mutually exclusive by position "
+            "(e.g. one only applies to goalkeepers, the other only to outfield players). "
+            "Try a different pair, or use the position filter above to narrow to compatible players."
+        )
+        scatter_fig = None
+    else:
+        scatter_highlight = [(entity_name, charts.PRIMARY_COLOR)]
+        if comparison_mode == "Head-to-Head" and compare_values is not None:
+            scatter_highlight.append((compare_name, charts.COMPARE_COLOR))
+
+        scatter_fig = charts.build_scatter(
+            scatter_df,
+            scatter_x_col,
+            scatter_y_col,
+            stat_resolver.display_name(scatter_x_canonical),
+            stat_resolver.display_name(scatter_y_canonical),
+            entity_col,
+            highlight=scatter_highlight,
+            color_col=position_col,
+            show_trend=show_trend,
+            show_avg_lines=show_avg_lines,
+            label_col=scatter_label_col,
+        )
+
+    if scatter_fig is not None:
+        scatter_display_cols = st.columns([1, 3, 1])
+        with scatter_display_cols[1]:
+            st.plotly_chart(scatter_fig, use_container_width=True)
 else:
     st.info("Pick valid columns for both scatter stats to render the plot.")

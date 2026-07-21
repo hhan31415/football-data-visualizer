@@ -1,0 +1,13 @@
+presets:
+  "Goal Contribution":
+    x: TotalGoals
+    y: TotalAssists
+  "Shooting Efficiency":
+    x: ShotAttempts
+    y: ShotsOnGoal
+  "Scoring Efficiency":
+    x: GoalsPerGame
+    y: ShotAccuracyPct
+  "Goalkeeping - Save Efficiency":
+    x: SavePct
+    y: GAA
