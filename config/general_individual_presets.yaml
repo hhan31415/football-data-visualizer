@@ -33,14 +33,14 @@ presets:
     - ExpectedAssists
     - ChancesCreated
     - PassAccuracy
-    - Dribbles
+    - DefensiveActions
     - Touches
   "Midfielder (Per90)":
     - AssistsPer90
     - ExpectedAssistsPer90
     - ChancesCreatedPer90
     - PassAccuracyPer90
-    - DribblesPer90
+    - DefensiveActionsPer90
     - TouchesPer90
 
   Defender:

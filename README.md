@@ -13,6 +13,7 @@ customization and filtering options.
 - **Scatter Explorer**: plot any two stats across every team/player in the
   file, with optional trend line, average reference lines, and position
   filtering. The wheel's selected entity/entities are highlighted on the plot.
+- **Extrema Finder**: find the top 5 and bottom 5 teams/players for a specific stat.
 - **Two dataset modes**:
   - `General` — dataset-agnostic presets seeded from FotMob exports for any extensive data sets.
   - `NCAA` — presets tuned for the NCAA soccer stat exports.
