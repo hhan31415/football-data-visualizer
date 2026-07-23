@@ -15,8 +15,8 @@ customization and filtering options.
   filtering. The wheel's selected entity/entities are highlighted on the plot.
 - **Extrema Finder**: find the top 5 and bottom 5 teams/players for a specific stat.
 - **Two dataset modes**:
-  - `General` — dataset-agnostic presets seeded from FotMob exports for any extensive data sets.
-  - `NCAA` — presets tuned for the NCAA soccer stat exports.
+  - `General` - dataset-agnostic presets seeded from FotMob exports for any extensive data sets.
+  - `NCAA` - presets tuned for the NCAA soccer stat exports.
 - **Sample Datasets**: sample stats for general teams/individuals (in `fotmob_files/`) and NCAA teams/individuals (in `ncaa_files/`)
 - **Flexible CSVs**: stat columns are matched by alias, not exact name, so
   minor formatting differences (`GoalsPerGame` vs `goals_per_game`) still
@@ -64,5 +64,5 @@ Drop in the six config files for a new `dataset` name
 (`{dataset}_team_aliases.yaml`, `{dataset}_team_presets.yaml`,
 `{dataset}_team_scatter_presets.yaml`, and the `individual` equivalents),
 add the dataset to the radio options in `app.py`, and it picks up the same
-UI automatically. Scatter presets are optional — if the file doesn't exist,
+UI automatically. Scatter presets are optional - if the file doesn't exist,
 the app just falls back to a free "pick any two stats" picker.
