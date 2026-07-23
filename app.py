@@ -1,9 +1,19 @@
+from pathlib import Path
+
 import pandas as pd
 import streamlit as st
 
 from src import charts, config_loader, data_io, percentiles, stat_resolver
 
 st.set_page_config(page_title="Football Data Visualizer", layout="wide")
+
+APP_DIR = Path(__file__).resolve().parent
+EXAMPLE_CSV_PATHS = {
+    ("ncaa", "team"): APP_DIR / "ncaa_files" / "ncaa_di_mens_soccer_team_stats_2025.csv",
+    ("ncaa", "individual"): APP_DIR / "ncaa_files" / "ncaa_di_mens_soccer_individual_stats_2025.csv",
+    ("general", "team"): APP_DIR / "fotmob_files" / "team_stats_mls.csv",
+    ("general", "individual"): APP_DIR / "fotmob_files" / "mls_2026_all_players.csv",
+}
 
 st.markdown(
     """
@@ -85,10 +95,10 @@ def position_multiselect(label, positions_available, key):
 mode_label = st.radio("Mode", ["Team Stats", "Individual Stats"], horizontal=True, label_visibility="collapsed")
 mode = "team" if mode_label == "Team Stats" else "individual"
 
-upload_row = st.columns(2)
+upload_row = st.columns([2, 1, 1])
 with upload_row[0]:
     uploaded = st.file_uploader(f"Upload {mode_label} CSV", type="csv", key="primary_csv")
-with upload_row[1]:
+with upload_row[2]:
     dataset_label = st.radio(
         "Dataset", ["General", "NCAA"], horizontal=True,
         help="General is dataset-agnostic for any "
@@ -96,15 +106,33 @@ with upload_row[1]:
     )
     dataset = "ncaa" if dataset_label == "NCAA" else "general"
 
+example_path = EXAMPLE_CSV_PATHS[(dataset, mode)]
+with upload_row[1]:
+    st.markdown("<div style='height: 1.6rem'></div>", unsafe_allow_html=True)
+    use_example_clicked = st.button(
+        "Use example CSV",
+        key=f"use_example_{dataset}_{mode}",
+        help=f"Loads the bundled sample: {example_path.name}",
+        use_container_width=True,
+    )
+
 aliases_cfg = config_loader.load_aliases(dataset, mode)
 stat_meta = aliases_cfg["stats"]
 presets = config_loader.load_presets(dataset, mode)
 
-if uploaded is None:
-    st.info("Upload a CSV to get started.")
-    st.stop()
+if use_example_clicked:
+    st.session_state["example_csv_active"] = (dataset, mode)
 
-df = data_io.load_csv(uploaded)
+if uploaded is not None:
+    st.session_state.pop("example_csv_active", None)
+    df = data_io.load_csv(uploaded)
+elif st.session_state.get("example_csv_active") == (dataset, mode):
+    with open(example_path, "rb") as f:
+        df = data_io.load_csv(f)
+    st.caption(f"Using example data: `{example_path.name}`")
+else:
+    st.info('Upload a CSV, or click "Use example CSV" to try it with sample data.')
+    st.stop()
 
 entity_col = stat_resolver.resolve_single(df, aliases_cfg.get("entity_column", []))
 if entity_col is None:
